@@ -9,7 +9,8 @@ defmodule Timeline.Main do
 
   def add(t, new) do
     t
-    |> update_history(t.history ++ [new])
+    |> trim_history()
+    |> add_history(new)
     |> update_cur_move(t.cur_move + 1)
   end
 
@@ -27,6 +28,13 @@ defmodule Timeline.Main do
 
   def history(t), do: t.history
 
+  defp add_history(t, new) do
+    t |> update_history(t.history ++ [new])
+  end
+
+  defp trim_history(t) do
+    t |> update_history(t.history |> Enum.take(t.cur_move))
+  end
 
   defp update_history(t, new), do: Map.put(t, :history, new)
   defp update_cur_move(t, new), do: Map.put(t, :cur_move, new)
