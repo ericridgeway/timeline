@@ -14,9 +14,12 @@ defmodule Timeline.Main do
     |> update_cur_move(t.cur_move + 1)
   end
 
-  def undo(%{cur_move: 0}=t), do: t
   def undo(t) do
-    t |> update_cur_move(t.cur_move - 1)
+    if any_undos?(t) do
+      t |> update_cur_move(t.cur_move - 1)
+    else
+      t
+    end
   end
 
   def any_undos?(%{cur_move: 0}), do: false
