@@ -1,5 +1,6 @@
 defmodule TimelineTest.Main do
   use ExUnit.Case
+  import ShorterMaps
 
   alias Timeline.{Main}
 
@@ -10,10 +11,10 @@ defmodule TimelineTest.Main do
       |> Main.add("a2")
       |> Main.add("a3")
 
-    %{add3_main: add3_main}
+    ~M{add3_main}
   end
 
-  test "add", %{add3_main: add3_main} do
+  test "add", ~M{add3_main} do
     assert add3_main |> Main.history == ~w[a1 a2 a3]
     assert add3_main |> Main.cur_value == "a3"
   end
