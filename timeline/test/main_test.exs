@@ -19,6 +19,10 @@ defmodule TimelineTest.Main do
     assert add3_main |> Main.cur_value == "a3"
   end
 
-  test "Undo" do
+  test "Undo", %{add3_main: add3_main} do
+    assert "a2" ==
+      add3_main
+      |> Main.undo
+      |> Main.cur_value
   end
 end
