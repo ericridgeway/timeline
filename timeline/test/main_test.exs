@@ -72,7 +72,7 @@ defmodule TimelineTest.Main do
     refute Main.new |> Main.any_undos?
   end
 
-  # test "any_redos?" do
-  #   refute Main.new |> Main.any_undos?
-  # end
+  test "any_redos?" do
+    refute Main.new |> Main.any_redos?
+  end
 end

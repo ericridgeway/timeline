@@ -33,6 +33,10 @@ defmodule Timeline.Main do
     end
   end
 
+  def any_redos?(t) do
+    if t.cur_move == length(t.history), do: false, else: true
+  end
+
   def cur_value(t) do
     t.history |> Enum.at(t.cur_move-1)
   end
