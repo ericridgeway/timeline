@@ -34,17 +34,6 @@ defmodule TimelineTest.Main do
       |> Main.cur_value
   end
 
-  # NOTE this will get changed to branching next
-  test "First version of undo->add", %{add3_main: add3_main} do
-    main =
-      add3_main
-      |> Main.undo
-      |> Main.add("b3")
-
-    assert main |> Main.history == ~w[a1 a2 b3]
-    assert main |> Main.cur_value == "b3"
-  end
-
   test "Undo edge cases", %{add3_main: add3_main} do
     main =
       add3_main
@@ -75,4 +64,17 @@ defmodule TimelineTest.Main do
   test "any_redos?" do
     refute Main.new |> Main.any_redos?
   end
+
+  # NOTE this will get changed to branching next
+  test "First version of undo->add", %{add3_main: add3_main} do
+    main =
+      add3_main
+      |> Main.undo
+      |> Main.add("b3")
+
+    assert main |> Main.history == ~w[a1 a2 b3]
+    assert main |> Main.cur_value == "b3"
+  end
+
+
 end
