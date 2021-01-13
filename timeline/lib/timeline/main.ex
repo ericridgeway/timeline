@@ -9,11 +9,11 @@ defmodule Timeline.Main do
 
   def add(t, new) do
     t
-    |> update_me([new | t.me])
+    |> update_me(t.me ++ [new])
     |> update_cur_move(t.cur_move + 1)
   end
 
-  def history(t), do: t.me |> Enum.reverse()
+  def history(t), do: t.me
 
 
   defp update_me(t, new), do: Map.put(t, :me, new)
