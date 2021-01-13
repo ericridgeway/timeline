@@ -17,6 +17,10 @@ defmodule Timeline.Main do
     t |> update_cur_move(t.cur_move - 1)
   end
 
+  def redo(t) do
+    t |> update_cur_move(t.cur_move + 1)
+  end
+
   def cur_value(t) do
     t.history |> Enum.at(t.cur_move-1)
   end

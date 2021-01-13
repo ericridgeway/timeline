@@ -25,4 +25,12 @@ defmodule TimelineTest.Main do
       |> Main.undo
       |> Main.cur_value
   end
+
+  test "Redo", %{add3_main: add3_main} do
+    assert "a3" ==
+      add3_main
+      |> Main.undo
+      |> Main.redo
+      |> Main.cur_value
+  end
 end
