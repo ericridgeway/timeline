@@ -46,8 +46,6 @@ defmodule TimelineTest.Main do
   end
 
   test "Undo edge cases", %{add3_main: add3_main} do
-    assert Main.new |> Main.undo == Main.new
-
     main =
       add3_main
       |> Main.undo
@@ -56,9 +54,25 @@ defmodule TimelineTest.Main do
       |> Main.add("cat")
 
     assert main |> Main.history == ~w[cat]
+    assert Main.new |> Main.undo == Main.new
+  end
+
+  test "Redo edge cases", %{add3_main: add3_main} do
+    main =
+      add3_main
+      |> Main.undo
+      |> Main.redo
+      |> Main.redo
+
+    assert main == add3_main
+    assert Main.new |> Main.redo == Main.new
   end
 
   test "any_undos?" do
     refute Main.new |> Main.any_undos?
   end
+
+  # test "any_redos?" do
+  #   refute Main.new |> Main.any_undos?
+  # end
 end
