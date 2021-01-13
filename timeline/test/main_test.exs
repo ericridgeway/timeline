@@ -57,4 +57,8 @@ defmodule TimelineTest.Main do
 
     assert main |> Main.history == ~w[cat]
   end
+
+  test "any_undos?" do
+    refute Main.new |> Main.any_undos?
+  end
 end

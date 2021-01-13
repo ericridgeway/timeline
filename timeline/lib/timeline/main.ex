@@ -19,6 +19,9 @@ defmodule Timeline.Main do
     t |> update_cur_move(t.cur_move - 1)
   end
 
+  def any_undos?(%{cur_move: 0}), do: false
+  def any_undos?(_t), do: true
+
   def redo(t) do
     t |> update_cur_move(t.cur_move + 1)
   end
