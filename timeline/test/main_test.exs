@@ -44,4 +44,17 @@ defmodule TimelineTest.Main do
     assert main |> Main.history == ~w[a1 a2 b3]
     assert main |> Main.cur_value == "b3"
   end
+
+  test "Undo edge cases", %{add3_main: add3_main} do
+    assert Main.new |> Main.undo == Main.new
+
+    main =
+      add3_main
+      |> Main.undo
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("cat")
+
+    assert main |> Main.history == ~w[cat]
+  end
 end

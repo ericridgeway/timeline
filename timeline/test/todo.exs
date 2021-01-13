@@ -1,8 +1,10 @@
+# Done+
 # + dry test with setup
-
 # add
 # undo
 # redo
+
+
 # left
 # right
 # any undo/redo/left/right?
