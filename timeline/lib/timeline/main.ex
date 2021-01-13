@@ -26,10 +26,10 @@ defmodule Timeline.Main do
   def any_undos?(_t), do: true
 
   def redo(t) do
-    if t.cur_move == length(t.history) do
-      t
-    else
+    if any_redos?(t) do
       t |> update_cur_move(t.cur_move + 1)
+    else
+      t
     end
   end
 
