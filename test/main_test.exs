@@ -83,5 +83,19 @@ defmodule TimelineTest.Main do
 #     assert main |> Main.history == ~w[a1 a2 b3]
   end
 
+  # # tmp internal
+  # test "is_this_overwriting", ~M{add3_main} do
+  #   main =
+  #     add3_main
+  #     |> Main.undo
+  #     # |> Main.add("b3")
+
+  #   assert Main.is_this_overwriting?("b3")
+  #   refute Main.is_this_overwriting?("a3")
+  #   # NOTE oh, this is the same as any_redos?
+
+  #   # assert main |> Main.history == ~w[a1 a2 b3]
+  # end
+
   # test "left edgecase and any_lefts?" do
 end
