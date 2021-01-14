@@ -65,23 +65,23 @@ defmodule TimelineTest.Main do
     refute Main.new |> Main.any_redos?
   end
 
-  test "Undo then move creates branch", ~M{add3_main} do
-    main =
-      add3_main
-      |> Main.undo
-      |> Main.add("b3")
-    assert main |> Main.history == ~w[a1 a2 b3]
+  # test "Undo then move creates branch", ~M{add3_main} do
+  #   main =
+  #     add3_main
+  #     |> Main.undo
+  #     |> Main.add("b3")
+  #   assert main |> Main.history == ~w[a1 a2 b3]
 
-    main =
-      main
-      |> Main.left
-    assert main |> Main.history == ~w[a1 a2 a3]
+  #   main =
+  #     main
+  #     |> Main.left
+  #   assert main |> Main.history == ~w[a1 a2 a3]
 
-#     main =
-#       main
-#       |> Main.right
-#     assert main |> Main.history == ~w[a1 a2 b3]
-  end
+# #     main =
+# #       main
+# #       |> Main.right
+# #     assert main |> Main.history == ~w[a1 a2 b3]
+  # end
 
   # # tmp internal
   # test "is_this_overwriting", ~M{add3_main} do
