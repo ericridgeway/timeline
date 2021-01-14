@@ -63,8 +63,9 @@ defmodule Timeline.Main do
 
   defp update_history(t, new) do
     timeline = Map.put(t.timeline, t.cur_timeline, new)
-    Map.put(t, :timeline, timeline)
+    t |> update_timeline(timeline)
   end
 
+  defp update_timeline(t, new), do: Map.put(t, :timeline, new)
   defp update_cur_move(t, new), do: Map.put(t, :cur_move, new)
 end
