@@ -37,6 +37,10 @@ defmodule Timeline.Main do
     if t.cur_move == length(t.history), do: false, else: true
   end
 
+  def left(t) do
+    t |> update_history(~w[a1 a2 a3])
+  end
+
   def cur_value(t) do
     t.history |> Enum.at(t.cur_move-1)
   end

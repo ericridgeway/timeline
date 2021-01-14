@@ -65,16 +65,23 @@ defmodule TimelineTest.Main do
     refute Main.new |> Main.any_redos?
   end
 
-  # NOTE this will get changed to branching next
-  test "First version of undo->add", %{add3_main: add3_main} do
+  test "Undo then move creates branch", ~M{add3_main} do
     main =
       add3_main
       |> Main.undo
       |> Main.add("b3")
-
     assert main |> Main.history == ~w[a1 a2 b3]
-    assert main |> Main.cur_value == "b3"
+
+    main =
+      main
+      |> Main.left
+    assert main |> Main.history == ~w[a1 a2 a3]
+
+#     main =
+#       main
+#       |> Main.right
+#     assert main |> Main.history == ~w[a1 a2 b3]
   end
 
-
+  # test "left edgecase and any_lefts?" do
 end
