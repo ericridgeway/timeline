@@ -1,8 +1,9 @@
 defmodule Timeline.Main do
+  alias Timeline.{History}
 
   def new() do
     %{
-      history: [],
+      history: History.new(),
       cur_move: 0,
     }
   end
@@ -34,7 +35,7 @@ defmodule Timeline.Main do
   end
 
   def any_redos?(t) do
-    if t.cur_move == length(t.history), do: false, else: true
+    if t.cur_move == History.size(t.history), do: false, else: true
   end
 
   def left(t) do
@@ -42,17 +43,17 @@ defmodule Timeline.Main do
   end
 
   def cur_value(t) do
-    t.history |> Enum.at(t.cur_move-1)
+    t.history |> History.at(t.cur_move-1)
   end
 
   def history(t), do: t.history
 
   defp add_history(t, new) do
-    t |> update_history(t.history ++ [new])
+    t |> update_history(History.add(t.history, new))
   end
 
   defp trim_history(t) do
-    t |> update_history(t.history |> Enum.take(t.cur_move))
+    t |> update_history(History.trim(t.history, t.cur_move))
   end
 
   defp update_history(t, new), do: Map.put(t, :history, new)
