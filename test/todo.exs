@@ -14,3 +14,6 @@
 # chang update_history and similar Main _history funcs to _timeline?
 # extract Timeline module similar to History?
 # extract Move (includes Turn and Value)
+
+
+# base turns/turn on parent instead of tracking sep field
