@@ -20,12 +20,13 @@ defmodule TimelineTest.Main do
   end
 
   # tmp note del, possible internal, I think fine tho?
-  test "Turn order maintained", ~M{add3_main} do
+  test "Turn order maintained" do
     main =
       Main.new()
       |> Main.add("c")
       |> Main.add("a")
       |> Main.add("b")
+      |> IO.inspect(label: "")
 
     assert main |> Main.history == ~w[c a b]
   end

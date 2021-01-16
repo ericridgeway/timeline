@@ -1,4 +1,5 @@
 defmodule Timeline.Main do
+  alias Timeline.{Move}
 
   defstruct ~w[history turns]a
 
@@ -25,10 +26,7 @@ defmodule Timeline.Main do
   def turns(t), do: t.turns
 
   defp add_history(t, new) do
-    move = %{
-      turn: t.turns+1,
-      value: new,
-    }
+    move = Move.new(t.turns+1, new)
     struct!(t, history: MapSet.put(t.history, move))
   end
 
