@@ -27,11 +27,8 @@ defmodule Timeline.Main do
 
   defp add_history(t, new) do
     move = Move.new(t.turns+1, new)
-    # struct!(t, history: MapSet.put(t.history, move))
-    update_history(t, MapSet.put(t.history, move))
+    struct!(t, history: MapSet.put(t.history, move))
   end
-
-  defp update_history(t, new), do: struct!(t, history: new)
 
   defp inc_turns(t), do: struct!(t, turns: t.turns + 1)
 end
