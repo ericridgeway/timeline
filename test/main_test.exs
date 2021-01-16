@@ -40,15 +40,16 @@ defmodule TimelineTest.Main do
 
   # tmp internal
   test "3 move parent correct" do
-    # main = Main.new |> Main.add("cat") |> Main.add("dog") |> Main.add("mouse")
-    # expected_move1 = Timeline.Move.new(1, "cat", nil)
-    # expected_move2 = Timeline.Move.new(2, "dog", expected_move1)
-    # expected_move3 = Timeline.Move.new(3, "mouse", expected_move2)
-    # history_mapset = main.history
+    main = Main.new |> Main.add("cat") |> Main.add("dog") |> Main.add("mouse")
+           |> IO.inspect(label: "")
+    expected_move1 = Timeline.Move.new(1, "cat", nil)
+    expected_move2 = Timeline.Move.new(2, "dog", expected_move1)
+    expected_move3 = Timeline.Move.new(3, "mouse", expected_move2)
+    history_mapset = main.history
 
-    # for expected_move <- [expected_move1, expected_move2, expected_move3] do
-    #   assert MapSet.member?(history_mapset, expected_move)
-    # end
+    for expected_move <- [expected_move1, expected_move2, expected_move3] do
+      assert MapSet.member?(history_mapset, expected_move)
+    end
   end
 
   # # oh most_recent_move and parent are the same thing
