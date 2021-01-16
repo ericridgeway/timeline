@@ -1,10 +1,11 @@
 defmodule Timeline.Move do
-  defstruct ~w[turn value]a
+  defstruct ~w[turn value parent]a
 
-  def new(turn, value) do
+  def new(turn, value, parent \\ nil) do
     %__MODULE__{
       turn: turn,
       value: value,
+      parent: parent,
     }
   end
 

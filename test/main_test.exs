@@ -30,6 +30,50 @@ defmodule TimelineTest.Main do
     assert main |> Main.history == ~w[c a b]
   end
 
+
+  # tmp internal?
+  test "most_recent_move", ~M{add3_main} do
+    assert add3_main |> Main.most_recent_move == "a3"
+    assert Main.new |> Main.most_recent_move == nil
+  end
+
+  # tmp internal
+  test "1 move parent correct" do
+    expected_move = Timeline.Move.new(1, "cat", nil)
+    main = Main.new |> Main.add("cat")
+    history_mapset = main.history
+    assert MapSet.member?(history_mapset, expected_move)
+  end
+
+  # tmp internal
+  test "3 move parent correct" do
+    # main = Main.new |> Main.add("cat") |> Main.add("dog") |> Main.add("mouse")
+    # expected_move1 = Timeline.Move.new(1, "cat", nil)
+    # expected_move2 = Timeline.Move.new(2, "dog", expected_move1)
+    # expected_move3 = Timeline.Move.new(3, "mouse", expected_move2)
+    # history_mapset = main.history
+
+    # for expected_move <- [expected_move1, expected_move2, expected_move3] do
+    #   assert MapSet.member?(history_mapset, expected_move)
+    # end
+  end
+
+  # # oh most_recent_move and parent are the same thing
+  # test "parent" do
+  #   assert Main.new |> Main.parent == nil
+  #   assert Main.new |> Main.parent == nil
+  # end
+
+  # # tmp internal or unneces func?
+  # test "1 move, move knows parent", ~M{add3_main} do
+  #   assert Main.new |> Main.add("hi") |> Main.history_with_parents == ~w[()hi]
+  # end
+
+  # # tmp internal or unneces func?
+  # test "move knows parent", ~M{add3_main} do
+  #   assert add3_main |> Main.history_with_parents == ~w[()a1 (1-a1)a2 (2-a2)a3]
+  # end
+
   # NOTE Main.history might not be the final func...
 
   # test "Undo", %{add3_main: add3_main} do
