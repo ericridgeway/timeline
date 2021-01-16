@@ -10,9 +10,8 @@ defmodule Timeline.Main do
   end
 
   def add(t, new) do
-    history = MapSet.put(t.history, new)
     t
-    |> update_history(history)
+    |> add_history(new)
     |> inc_turns()
   end
 
@@ -20,6 +19,7 @@ defmodule Timeline.Main do
 
   def turns(t), do: t.turns
 
+  defp add_history(t, new), do: struct!(t, history: MapSet.put(t.history, new))
+
   defp inc_turns(t), do: struct!(t, turns: t.turns + 1)
-  defp update_history(t, new), do: struct!(t, history: new)
 end
