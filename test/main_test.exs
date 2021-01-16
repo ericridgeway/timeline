@@ -16,7 +16,7 @@ defmodule TimelineTest.Main do
 
   test "add", ~M{add3_main} do
     assert add3_main |> Main.history == ~w[a1 a2 a3]
-    # assert add3_main |> Main.turns == 3
+    assert add3_main |> Main.turns == 3
   end
 
   # tmp internal
