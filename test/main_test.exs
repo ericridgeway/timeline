@@ -40,8 +40,14 @@ defmodule TimelineTest.Main do
 
   # tmp internal
   test "3 move parent correct" do
-    main = Main.new |> Main.add("cat") |> Main.add("dog") |> Main.add("mouse")
-           |> IO.inspect(label: "")
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.add("mouse")
+      |> Main.add("4th guy")
+      |> Main.add("5th line")
+      |> IO.inspect(label: "")
     expected_move1 = Timeline.Move.new(1, "cat", nil)
     expected_move2 = Timeline.Move.new(2, "dog", expected_move1)
     expected_move3 = Timeline.Move.new(3, "mouse", expected_move2)
