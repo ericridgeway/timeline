@@ -13,3 +13,4 @@
 # test add a3, undo, add a3 doesn't make new timeline?
 # chang update_history and similar Main _history funcs to _timeline?
 # extract Timeline module similar to History?
+# extract Move (includes Turn and Value)

@@ -19,14 +19,16 @@ defmodule TimelineTest.Main do
     assert add3_main |> Main.turns == 3
   end
 
-  # tmp internal
-  # test "store turn, and history sorts by that", ~M{add3_main} do
-  #   main =
-  #     Main.new()
-  #     |> Main.add("c")
-  #     |> Main.add("a")
-  #     |> Main.add("b")
-  # end
+  # tmp note del, possible internal, I think fine tho?
+  test "Turn order maintained", ~M{add3_main} do
+    main =
+      Main.new()
+      |> Main.add("c")
+      |> Main.add("a")
+      |> Main.add("b")
+
+    assert main |> Main.history == ~w[c a b]
+  end
 
   # NOTE Main.history might not be the final func...
 
