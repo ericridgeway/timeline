@@ -14,49 +14,49 @@ defmodule TimelineTest.Main do
     ~M{add3_main}
   end
 
-  test "add", ~M{add3_main} do
-    assert add3_main |> Main.history == ~w[a1 a2 a3]
-    assert add3_main |> Main.turns == 3
-  end
+  # test "add", ~M{add3_main} do
+    # assert add3_main |> Main.history == ~w[a1 a2 a3]
+    # assert add3_main |> Main.turns == 3
+  # end
 
-  # tmp note del, possible internal, I think fine tho?
-  test "Turn order maintained" do
-    main =
-      Main.new()
-      |> Main.add("c")
-      |> Main.add("a")
-      |> Main.add("b")
+  # # tmp note del, possible internal, I think fine tho?
+  # test "Turn order maintained" do
+  #   main =
+  #     Main.new()
+  #     |> Main.add("c")
+  #     |> Main.add("a")
+  #     |> Main.add("b")
 
-    assert main |> Main.history == ~w[c a b]
-  end
+  #   assert main |> Main.history == ~w[c a b]
+  # end
 
-  # tmp internal
-  test "1 move parent correct" do
-    expected_move = Timeline.Move.new(1, "cat", nil)
-    main = Main.new |> Main.add("cat")
-    history_mapset = main.history
-    assert MapSet.member?(history_mapset, expected_move)
-  end
+  # # tmp internal
+  # test "1 move parent correct" do
+  #   expected_move = Timeline.Move.new(1, "cat", nil)
+  #   main = Main.new |> Main.add("cat")
+  #   history_mapset = main.history
+  #   assert MapSet.member?(history_mapset, expected_move)
+  # end
 
-  # tmp internal
-  test "3 move parent correct" do
-    main =
-      Main.new
-      |> Main.add("cat")
-      |> Main.add("dog")
-      |> Main.add("mouse")
-      |> Main.add("4th guy")
-      |> Main.add("5th line")
-      |> IO.inspect(label: "")
-    expected_move1 = Timeline.Move.new(1, "cat", nil)
-    expected_move2 = Timeline.Move.new(2, "dog", expected_move1)
-    expected_move3 = Timeline.Move.new(3, "mouse", expected_move2)
-    history_mapset = main.history
+  # # tmp internal
+  # test "3 move parent correct" do
+  #   main =
+  #     Main.new
+  #     |> Main.add("cat")
+  #     |> Main.add("dog")
+  #     |> Main.add("mouse")
+  #     |> Main.add("4th guy")
+  #     |> Main.add("5th line")
+  #     |> IO.inspect(label: "")
+  #   expected_move1 = Timeline.Move.new(1, "cat", nil)
+  #   expected_move2 = Timeline.Move.new(2, "dog", expected_move1)
+  #   expected_move3 = Timeline.Move.new(3, "mouse", expected_move2)
+  #   history_mapset = main.history
 
-    for expected_move <- [expected_move1, expected_move2, expected_move3] do
-      assert MapSet.member?(history_mapset, expected_move)
-    end
-  end
+  #   for expected_move <- [expected_move1, expected_move2, expected_move3] do
+  #     assert MapSet.member?(history_mapset, expected_move)
+  #   end
+  # end
 
   # # oh most_recent_move and parent are the same thing
   # test "parent" do
