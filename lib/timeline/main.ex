@@ -19,8 +19,8 @@ defmodule Timeline.Main do
   def history(t) do
     t.history
     |> MapSet.to_list
-    |> Enum.sort(&(&1.turn < &2.turn))
-    |> Enum.map(& &1.value)
+    |> Enum.sort(&Move.sort/2)
+    |> Enum.map(&Move.value/1)
   end
 
   def turns(t), do: t.turns

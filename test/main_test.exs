@@ -26,7 +26,6 @@ defmodule TimelineTest.Main do
       |> Main.add("c")
       |> Main.add("a")
       |> Main.add("b")
-      |> IO.inspect(label: "")
 
     assert main |> Main.history == ~w[c a b]
   end

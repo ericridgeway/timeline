@@ -7,4 +7,10 @@ defmodule Timeline.Move do
       value: value,
     )
   end
+
+  def sort(move1, move2) do
+    move1.turn < move2.turn
+  end
+
+  def value(t), do: t.value
 end
