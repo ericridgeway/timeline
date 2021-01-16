@@ -4,10 +4,10 @@ defmodule Timeline.Main do
   defstruct ~w[history turns]a
 
   def new() do
-    struct!(__MODULE__,
+    %__MODULE__{
       history: MapSet.new(),
       turns: 0,
-    )
+    }
   end
 
   def add(t, new) do
