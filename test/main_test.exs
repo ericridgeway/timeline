@@ -30,13 +30,6 @@ defmodule TimelineTest.Main do
     assert main |> Main.history == ~w[c a b]
   end
 
-
-  # tmp internal?
-  test "most_recent_move", ~M{add3_main} do
-    assert add3_main |> Main.most_recent_move == "a3"
-    assert Main.new |> Main.most_recent_move == nil
-  end
-
   # tmp internal
   test "1 move parent correct" do
     expected_move = Timeline.Move.new(1, "cat", nil)
