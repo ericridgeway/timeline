@@ -6,19 +6,29 @@ defmodule TimelineTest.Main do
 
   setup do
     add3_main =
-      nil
-      # Main.new()
-      # |> Main.add("a1")
-      # |> Main.add("a2")
-      # |> Main.add("a3")
+      Main.new()
+      |> Main.add("a1")
+      |> Main.add("a2")
+      |> Main.add("a3")
 
     ~M{add3_main}
   end
 
   test "add", ~M{add3_main} do
-    # assert add3_main |> Main.history == ~w[a1 a2 a3]
-    # assert add3_main |> Main.cur_value == "a3"
+    assert add3_main |> Main.history == ~w[a1 a2 a3]
+    # assert add3_main |> Main.turns == 3
   end
+
+  # tmp internal
+  # test "store turn, and history sorts by that", ~M{add3_main} do
+  #   main =
+  #     Main.new()
+  #     |> Main.add("c")
+  #     |> Main.add("a")
+  #     |> Main.add("b")
+  # end
+
+  # NOTE Main.history might not be the final func...
 
   # test "Undo", %{add3_main: add3_main} do
   #   assert "a2" ==
