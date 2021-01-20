@@ -14,9 +14,9 @@ defmodule TimelineTest.Main do
     ~M{add3_main}
   end
 
-  test "ascii output" do
-    assert Main.ascii_output(Main.new()) == []
-  end
+#   test "ascii output" do
+#     assert Main.ascii_output(Main.new()) == []
+#   end
 
   test "1 move" do
     main =
@@ -25,7 +25,14 @@ defmodule TimelineTest.Main do
 
     # assert main |> Main.ascii_output == ~w[1]
     assert main |> Main.value(1) == "cat"
+    assert main |> Main.current == 1
   end
+
+  test "Current moves forward with add" do
+  end
+  # test "Undo moves Current back" do
+  # test "Redo" do
+  # test "list all moves on single branch leading current (following his parents back) (better name?)" do
 
   # test "add", ~M{add3_main} do
     # assert add3_main |> Main.history == ~w[a1 a2 a3]

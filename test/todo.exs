@@ -62,5 +62,7 @@
 # main--
 # I think we want ascii at same time
 # Main.add uses [new | old] and Enum reverse at some point (for elixir effeciency)
+# .actually nodes should prob just be a mapset
 # ascii for Current move, add * or something
 # .save current as a Node field, or keep Node uid's and save current as a Main field?
+# node generates it's own uuid prob
