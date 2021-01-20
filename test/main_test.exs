@@ -14,6 +14,18 @@ defmodule TimelineTest.Main do
     ~M{add3_main}
   end
 
+  test "ascii output" do
+    assert Main.ascii_output(Main.new()) == []
+  end
+
+  test "1 move" do
+    main =
+      Main.new
+      |> Main.add("1")
+
+    assert main |> Main.ascii_output == ~w[1]
+  end
+
   # test "add", ~M{add3_main} do
     # assert add3_main |> Main.history == ~w[a1 a2 a3]
     # assert add3_main |> Main.turns == 3

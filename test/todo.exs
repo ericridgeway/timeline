@@ -56,3 +56,9 @@
   #   sibling_row(last_move) |> left_of(last_move)
 
   # Um, I think that does it. Damnnnn if this works. I'm so smart. And pretty
+# Above might need uid's and be a mapset of stuff that holds it's parent, but the function logic should be close
+
+
+# main--
+# I think we want ascii at same time
+# Main.add uses [new | old] and Enum reverse at some point (for elixir effeciency)
