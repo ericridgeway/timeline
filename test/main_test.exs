@@ -21,9 +21,10 @@ defmodule TimelineTest.Main do
   test "1 move" do
     main =
       Main.new
-      |> Main.add("1")
+      |> Main.add("cat", 1)
 
-    assert main |> Main.ascii_output == ~w[1]
+    # assert main |> Main.ascii_output == ~w[1]
+    assert main |> Main.value(1) == "cat"
   end
 
   # test "add", ~M{add3_main} do
