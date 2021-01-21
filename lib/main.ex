@@ -22,6 +22,7 @@ defmodule Timeline.Main do
     |> Node.value
   end
 
+  def undo(%{current_node_id: 1}=t), do: t
   def undo(t) do
     t |> Map.put(:current_node_id, t.current_node_id - 1)
   end

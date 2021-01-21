@@ -43,10 +43,10 @@ defmodule TimelineTest.Main do
       |> Main.undo
 
     assert main |> Main.current == 1
+    assert main |> Main.undo |> Main.current == 1
   end
 
   # test "Redo" do
-  # test "Undo to edge" do
   # test "Redo to edge" do
   # test "list all moves on single branch leading current (following his parents back) (better name?)" do
 
