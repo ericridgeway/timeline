@@ -79,3 +79,4 @@
 # Node.new checks in test slightly ugly, esp manually knowing what prev id is
 # switch id/auto_id/default to fix the root/1/0 case
 # dry/clean/recursion history_to_current
+# first_child and redo() have same or similar logic, can dry one into the other I think

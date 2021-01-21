@@ -112,5 +112,25 @@ defmodule TimelineTest.Main do
     # assert main |> Main.first_child(1) == Node.new("dog", 2, 1)
   end
 
+  # test "Add undo redo without overriding id's" do
+  #   main =
+  #     Main.new
+  #     |> Main.undo
+  #     |> Main.add("cat", 1)
+  #     |> Main.add("dog", 2)
+  #     |> Main.add("mouse", 3)
+  #     |> Main.undo
+  #     |> Main.add("cheese", 4)
+  #     |> Main.undo
+  #     |> Main.redo
+  #     |> Main.redo
+  #     |> Main.redo
+  #     |> Main.redo
+  #     |> IO.inspect(label: "")
+
+# #     assert main |> Main.first_child(1) == Node.new("dog", 2, 1)
+# #     assert main |> Main.first_child(4) == nil
+  # end
+
 #   # test "sort by creation order" do
 end

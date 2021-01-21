@@ -86,6 +86,13 @@ defmodule Timeline.Main do
     end)
   end
 
+  def first_child(t, id) do
+    case children(t, id) do
+      [] -> nil
+      children -> children |> hd
+    end
+  end
+
   def current_node_id(t), do: t.current_node_id
 
   # defp current_node(t), do: get_node(t, t.current_node_id)
