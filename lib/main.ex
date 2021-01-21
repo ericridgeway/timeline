@@ -18,10 +18,8 @@ defmodule Timeline.Main do
 
   def value(t, id) do
     t.nodes
-    |> Enum.find(fn %{id: compare_id} ->
-      id == compare_id
-    end)
-    |> Map.get(:value)
+    |> Enum.find(&Node.match?(&1, id))
+    |> Node.value
   end
 
   def current(t), do: t.current_node_id

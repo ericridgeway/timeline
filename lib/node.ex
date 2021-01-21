@@ -6,4 +6,8 @@ defmodule Timeline.Node do
       id: id,
     }
   end
+
+  def value(t), do: t |> Map.get(:value)
+
+  def match?(t, target_id), do: t.id == target_id
 end
