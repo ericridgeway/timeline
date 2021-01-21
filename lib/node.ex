@@ -1,9 +1,10 @@
 defmodule Timeline.Node do
 
-  def new(value, id) do
+  def new(value, id, parent_id \\ nil) do
     %{
       value: value,
       id: id,
+      parent_id: parent_id,
     }
   end
 

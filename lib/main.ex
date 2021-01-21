@@ -41,6 +41,11 @@ defmodule Timeline.Main do
     |> Enum.filter(fn node -> node.id <= t.current_node_id end)
   end
 
+  def get_node(t, id) do
+    t.nodes
+    |> Enum.find(fn node -> node.id == id end)
+  end
+
   def current(t), do: t.current_node_id
 
 #   def ascii_output(t) do
