@@ -41,17 +41,17 @@ defmodule TimelineTest.Main do
     assert main |> Main.undo |> Main.current_node_id == 1
   end
 
-#   test "Redo" do
-#     main =
-#       Main.new
-#       |> Main.add("cat", 1)
-#       |> Main.add("dog", 2)
-#       |> Main.undo
-#       |> Main.redo
+  test "Redo" do
+    main =
+      Main.new
+      |> Main.add("cat", 1)
+      |> Main.add("dog", 2)
+      |> Main.undo
+      |> Main.redo
 
-#     assert main |> Main.current == 2
-#     assert main |> Main.redo |> Main.current == 2
-#   end
+    assert main |> Main.current_node_id == 2
+    assert main |> Main.redo |> Main.current_node_id == 2
+  end
 
 #   test "History to current" do
 #     main =

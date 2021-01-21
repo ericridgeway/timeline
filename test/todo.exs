@@ -62,6 +62,7 @@
 
 # minor--
 # refactor some of the parent == nil if do else blocks
+# .might rethink what happens when parent/children == nil. The possible Node.id on nil instead of a node is brittle
 
 
 
