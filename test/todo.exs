@@ -59,6 +59,12 @@
 # Above might need uid's and be a mapset of stuff that holds it's parent, but the function logic should be close
 
 
+
+# minor--
+# refactor some of the parent == nil if do else blocks
+
+
+
 # main--
 # I think we want ascii at same time
 # Main.add uses [new | old] and Enum reverse at some point (for elixir effeciency)

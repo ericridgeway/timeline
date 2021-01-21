@@ -35,12 +35,10 @@ defmodule TimelineTest.Main do
       Main.new
       |> Main.add("cat", 1)
       |> Main.add("dog", 2)
-      # |> IO.inspect(label: "before undo")
       |> Main.undo
-      # |> IO.inspect(label: "after undo")
 
-    # assert main |> Main.current == 1
-    # assert main |> Main.undo |> Main.current == 1
+    assert main |> Main.current_node_id == 1
+    assert main |> Main.undo |> Main.current_node_id == 1
   end
 
 #   test "Redo" do
