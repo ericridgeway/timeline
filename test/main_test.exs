@@ -14,16 +14,11 @@ defmodule TimelineTest.Main do
     ~M{add3_main}
   end
 
-#   test "ascii output" do
-#     assert Main.ascii_output(Main.new()) == []
-#   end
-
   test "store value, lookup value with id" do
     main =
       Main.new
       |> Main.add("cat", 1)
 
-    # assert main |> Main.ascii_output == ~w[1]
     assert main |> Main.value(1) == "cat"
   end
 
@@ -31,8 +26,8 @@ defmodule TimelineTest.Main do
     move_1_main = Main.new |> Main.add("cat", 1)
     move_2_main = move_1_main |> Main.add("dog", 2)
 
-    assert move_1_main |> Main.current == 1
-    assert move_2_main |> Main.current == 2
+    assert move_1_main |> Main.current_node_id == 1
+    assert move_2_main |> Main.current_node_id == 2
   end
 
   test "Undo moves Current back" do
@@ -42,8 +37,8 @@ defmodule TimelineTest.Main do
       |> Main.add("dog", 2)
       |> Main.undo
 
-    assert main |> Main.current == 1
-    assert main |> Main.undo |> Main.current == 1
+    assert main |> Main.current_node_id == 1
+    assert main |> Main.undo |> Main.current_node_id == 1
   end
 
   test "Redo" do
@@ -54,8 +49,8 @@ defmodule TimelineTest.Main do
       |> Main.undo
       |> Main.redo
 
-    assert main |> Main.current == 2
-    assert main |> Main.redo |> Main.current == 2
+    assert main |> Main.current_node_id == 2
+    assert main |> Main.redo |> Main.current_node_id == 2
   end
 
   test "History to current" do
@@ -90,7 +85,17 @@ defmodule TimelineTest.Main do
       |> Main.add("dog", 2)
 
     assert main |> Main.parent(2) == Node.new("cat", 1)
-    assert main |> Main.first_move?(1) == true
+  end
+
+  # tmp internal
+  test "first move" do
+    main =
+      Main.new
+      |> Main.add("cat", 1)
+      |> Main.undo
+      |> Main.add("dog", 2)
+
+    assert main |> Main.first_move?(2) == true
   end
 
   # tmp internal
@@ -107,147 +112,5 @@ defmodule TimelineTest.Main do
     # assert main |> Main.first_child(1) == Node.new("dog", 2, 1)
   end
 
-  # test "sort by creation order" do
-
-  # test "add", ~M{add3_main} do
-    # assert add3_main |> Main.history == ~w[a1 a2 a3]
-    # assert add3_main |> Main.turns == 3
-  # end
-
-  # # tmp note del, possible internal, I think fine tho?
-  # test "Turn order maintained" do
-  #   main =
-  #     Main.new()
-  #     |> Main.add("c")
-  #     |> Main.add("a")
-  #     |> Main.add("b")
-
-  #   assert main |> Main.history == ~w[c a b]
-  # end
-
-  # # tmp internal
-  # test "1 move parent correct" do
-  #   expected_move = Timeline.Move.new(1, "cat", nil)
-  #   main = Main.new |> Main.add("cat")
-  #   history_mapset = main.history
-  #   assert MapSet.member?(history_mapset, expected_move)
-  # end
-
-  # # tmp internal
-  # test "3 move parent correct" do
-  #   main =
-  #     Main.new
-  #     |> Main.add("cat")
-  #     |> Main.add("dog")
-  #     |> Main.add("mouse")
-  #     |> Main.add("4th guy")
-  #     |> Main.add("5th line")
-  #     |> IO.inspect(label: "")
-  #   expected_move1 = Timeline.Move.new(1, "cat", nil)
-  #   expected_move2 = Timeline.Move.new(2, "dog", expected_move1)
-  #   expected_move3 = Timeline.Move.new(3, "mouse", expected_move2)
-  #   history_mapset = main.history
-
-  #   for expected_move <- [expected_move1, expected_move2, expected_move3] do
-  #     assert MapSet.member?(history_mapset, expected_move)
-  #   end
-  # end
-
-  # # oh most_recent_move and parent are the same thing
-  # test "parent" do
-  #   assert Main.new |> Main.parent == nil
-  #   assert Main.new |> Main.parent == nil
-  # end
-
-  # # tmp internal or unneces func?
-  # test "1 move, move knows parent", ~M{add3_main} do
-  #   assert Main.new |> Main.add("hi") |> Main.history_with_parents == ~w[()hi]
-  # end
-
-  # # tmp internal or unneces func?
-  # test "move knows parent", ~M{add3_main} do
-  #   assert add3_main |> Main.history_with_parents == ~w[()a1 (1-a1)a2 (2-a2)a3]
-  # end
-
-  # NOTE Main.history might not be the final func...
-
-  # test "Undo", %{add3_main: add3_main} do
-  #   assert "a2" ==
-  #     add3_main
-  #     |> Main.undo
-  #     |> Main.cur_value
-  # end
-
-  # test "Redo", %{add3_main: add3_main} do
-  #   assert "a3" ==
-  #     add3_main
-  #     |> Main.undo
-  #     |> Main.redo
-  #     |> Main.cur_value
-  # end
-
-  # test "Undo edge cases", %{add3_main: add3_main} do
-  #   main =
-  #     add3_main
-  #     |> Main.undo
-  #     |> Main.undo
-  #     |> Main.undo
-  #     |> Main.add("cat")
-
-  #   assert main |> Main.history == ~w[cat]
-  #   assert Main.new |> Main.undo == Main.new
-  # end
-
-  # test "Redo edge cases", %{add3_main: add3_main} do
-  #   main =
-  #     add3_main
-  #     |> Main.undo
-  #     |> Main.redo
-  #     |> Main.redo
-
-  #   assert main == add3_main
-  #   assert Main.new |> Main.redo == Main.new
-  # end
-
-  # test "any_undos?" do
-  #   refute Main.new |> Main.any_undos?
-  # end
-
-  # test "any_redos?" do
-  #   refute Main.new |> Main.any_redos?
-  # end
-
-  # # test "Undo then move creates branch", ~M{add3_main} do
-  # #   main =
-  # #     add3_main
-  # #     |> Main.undo
-  # #     |> Main.add("b3")
-  # #   assert main |> Main.history == ~w[a1 a2 b3]
-
-  # #   main =
-  # #     main
-  # #     |> Main.left
-  # #   assert main |> Main.history == ~w[a1 a2 a3]
-
-# # #     main =
-# # #       main
-# # #       |> Main.right
-# # #     assert main |> Main.history == ~w[a1 a2 b3]
-  # # end
-
-  # # # tmp internal
-  # # test "is_this_overwriting", ~M{add3_main} do
-  # #   main =
-  # #     add3_main
-  # #     |> Main.undo
-  # #     # |> Main.add("b3")
-
-  # #   assert Main.is_this_overwriting?("b3")
-  # #   refute Main.is_this_overwriting?("a3")
-  # #   # NOTE oh, this is the same as any_redos?
-
-  # #   # assert main |> Main.history == ~w[a1 a2 b3]
-  # # end
-
-  # # test "left edgecase and any_lefts?" do
+#   # test "sort by creation order" do
 end

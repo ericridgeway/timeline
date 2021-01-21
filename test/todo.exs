@@ -59,6 +59,13 @@
 # Above might need uid's and be a mapset of stuff that holds it's parent, but the function logic should be close
 
 
+
+# minor--
+# refactor some of the parent == nil if do else blocks
+# .might rethink what happens when parent/children == nil. The possible Node.id on nil instead of a node is brittle
+
+
+
 # main--
 # I think we want ascii at same time
 # Main.add uses [new | old] and Enum reverse at some point (for elixir effeciency)
