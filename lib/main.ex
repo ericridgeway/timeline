@@ -16,8 +16,12 @@ defmodule Timeline.Main do
     |> Map.put(:current_node_id, manual_id)
   end
 
-  def value(_t, _id) do
-    "cat"
+  def value(t, id) do
+    t.nodes
+    |> Enum.find(fn %{id: compare_id} ->
+      id == compare_id
+    end)
+    |> Map.get(:value)
   end
 
   def current(t), do: t.current_node_id
