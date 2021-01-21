@@ -27,6 +27,15 @@ defmodule Timeline.Main do
     t |> Map.put(:current_node_id, t.current_node_id - 1)
   end
 
+  # def redo(%{current_node_id: }=t) when length(asd) == 1, do: t
+  def redo(t) do
+    if t.current_node_id == length(t.nodes) do
+      t
+    else
+      t |> Map.put(:current_node_id, t.current_node_id + 1)
+    end
+  end
+
   def current(t), do: t.current_node_id
 
 #   def ascii_output(t) do
