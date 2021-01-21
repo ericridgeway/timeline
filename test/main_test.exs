@@ -35,82 +35,84 @@ defmodule TimelineTest.Main do
       Main.new
       |> Main.add("cat", 1)
       |> Main.add("dog", 2)
+      # |> IO.inspect(label: "before undo")
       |> Main.undo
+      # |> IO.inspect(label: "after undo")
 
-    assert main |> Main.current == 1
-    assert main |> Main.undo |> Main.current == 1
+    # assert main |> Main.current == 1
+    # assert main |> Main.undo |> Main.current == 1
   end
 
-  test "Redo" do
-    main =
-      Main.new
-      |> Main.add("cat", 1)
-      |> Main.add("dog", 2)
-      |> Main.undo
-      |> Main.redo
+#   test "Redo" do
+#     main =
+#       Main.new
+#       |> Main.add("cat", 1)
+#       |> Main.add("dog", 2)
+#       |> Main.undo
+#       |> Main.redo
 
-    assert main |> Main.current == 2
-    assert main |> Main.redo |> Main.current == 2
-  end
+#     assert main |> Main.current == 2
+#     assert main |> Main.redo |> Main.current == 2
+#   end
 
-  test "History to current" do
-    main =
-      Main.new
-      |> Main.add("cat", 1)
-      |> Main.add("dog", 2)
-      |> Main.add("mouse", 3)
-      |> Main.undo
-      |> Main.add("cheese", 4)
+#   test "History to current" do
+#     main =
+#       Main.new
+#       |> Main.add("cat", 1)
+#       |> Main.add("dog", 2)
+#       |> Main.add("mouse", 3)
+#       |> Main.undo
+#       |> Main.add("cheese", 4)
 
-    expected = [Node.new("cat", 1), Node.new("dog", 2, 1), Node.new("cheese", 4, 2)]
+#     expected = [Node.new("cat", 1), Node.new("dog", 2, 1), Node.new("cheese", 4, 2)]
 
-    assert main |> Main.history_to_current == expected
-  end
+#     assert main |> Main.history_to_current == expected
+#   end
 
-  # tmp internal
-  test "get_node" do
-    main =
-      Main.new
-      |> Main.add("cat", 1)
-      |> Main.add("dog", 2)
+#   # tmp internal
+#   test "get_node" do
+#     main =
+#       Main.new
+#       |> Main.add("cat", 1)
+#       |> Main.add("dog", 2)
 
-    assert main |> Main.get_node(2) == Node.new("dog", 2, 1)
-  end
+#     assert main |> Main.get_node(2) == Node.new("dog", 2, 1)
+#   end
 
-  # tmp internal
-  test "parent" do
-    main =
-      Main.new
-      |> Main.add("cat", 1)
-      |> Main.add("dog", 2)
+#   # tmp internal
+#   test "parent" do
+#     main =
+#       Main.new
+#       |> Main.add("cat", 1)
+#       |> Main.add("dog", 2)
 
-    assert main |> Main.parent(2) == Node.new("cat", 1)
-  end
+#     assert main |> Main.parent(2) == Node.new("cat", 1)
+#   end
 
-  # tmp internal
-  test "first move" do
-    main =
-      Main.new
-      |> Main.add("cat", 1)
-      |> Main.undo
-      |> Main.add("dog", 2)
+#   # tmp internal
+#   test "first move" do
+#     main =
+#       Main.new
+#       |> Main.add("cat", 1)
+#       |> Main.undo
+#       |> Main.add("dog", 2)
 
-    assert main |> Main.first_move?(2) == true
-  end
+#     assert main |> Main.first_move?(2) == true
+#   end
 
-  # tmp internal
-  test "children" do
-    main =
-      Main.new
-      |> Main.add("cat", 1)
-      |> Main.add("dog", 2)
-      |> Main.add("mouse", 3)
-      |> Main.undo
-      |> Main.add("cheese", 4)
+#   # tmp internal
+#   test "children" do
+#     main =
+#       Main.new
+#       |> Main.add("cat", 1)
+#       |> Main.add("dog", 2)
+#       |> Main.add("mouse", 3)
+#       |> Main.undo
+#       |> Main.add("cheese", 4)
 
-    assert main |> Main.children(2) == [Node.new("mouse", 3, 2), Node.new("cheese", 4, 2)]
-    # assert main |> Main.first_child(1) == Node.new("dog", 2, 1)
-  end
+#     assert main |> Main.children(2) == [Node.new("mouse", 3, 2), Node.new("cheese", 4, 2)]
+#     # assert main |> Main.first_child(1) == Node.new("dog", 2, 1)
+#   end
 
-  # test "sort by creation order" do
+#   # test "sort by creation order" do
 end
