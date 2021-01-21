@@ -31,8 +31,15 @@ defmodule Timeline.Main do
   end
 
   def history_to_current(t) do
-    t.nodes
-    |> Enum.filter(fn node -> node.id <= t.current_node_id end)
+    new_list = [get_node(t, t.current_node_id)]
+
+    hd_id = hd(new_list) |> Node.id
+    parent = parent(t, hd_id)
+    new_list = [parent | new_list]
+
+    hd_id = hd(new_list) |> Node.id
+    parent = parent(t, hd_id)
+    _new_list = [parent | new_list]
   end
 
   def get_node(t, id) do

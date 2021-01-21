@@ -65,8 +65,9 @@ defmodule TimelineTest.Main do
       |> Main.add("dog", 2)
       |> Main.add("mouse", 3)
       |> Main.undo
+      |> Main.add("cheese", 4)
 
-    expected = [Node.new("cat", 1), Node.new("dog", 2, 1)]
+    expected = [Node.new("cat", 1), Node.new("dog", 2, 1), Node.new("cheese", 4, 2)]
 
     assert main |> Main.history_to_current == expected
   end
@@ -106,9 +107,7 @@ defmodule TimelineTest.Main do
     # assert main |> Main.first_child(1) == Node.new("dog", 2, 1)
   end
 
-  # TODO history_to_current needs to be done with parent-checking after getting it to work simply first
-  # .so add parentId to Node
-
+  # test "sort by creation order" do
 
   # test "add", ~M{add3_main} do
     # assert add3_main |> Main.history == ~w[a1 a2 a3]
