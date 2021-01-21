@@ -36,6 +36,11 @@ defmodule Timeline.Main do
     end
   end
 
+  def history_to_current(t) do
+    t.nodes
+    |> Enum.filter(fn node -> node.id <= t.current_node_id end)
+  end
+
   def current(t), do: t.current_node_id
 
 #   def ascii_output(t) do

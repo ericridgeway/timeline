@@ -2,7 +2,7 @@ defmodule TimelineTest.Main do
   use ExUnit.Case
   import ShorterMaps
 
-  alias Timeline.{Main}
+  alias Timeline.{Main, Node}
 
   setup do
     add3_main =
@@ -58,7 +58,22 @@ defmodule TimelineTest.Main do
     assert main |> Main.redo |> Main.current == 2
   end
 
-  # test "list all moves on single branch leading current (following his parents back) (better name?)" do
+  test "History to current" do
+    main =
+      Main.new
+      |> Main.add("cat", 1)
+      |> Main.add("dog", 2)
+      |> Main.add("mouse", 3)
+      |> Main.undo
+
+    expected = [Node.new("cat", 1), Node.new("dog", 2)]
+
+    assert main |> Main.history_to_current == expected
+  end
+
+  # TODO history_to_current needs to be done with parent-checking after getting it to work simply first
+  # .so add parentId to Node
+
 
   # test "add", ~M{add3_main} do
     # assert add3_main |> Main.history == ~w[a1 a2 a3]
