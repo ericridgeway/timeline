@@ -2,7 +2,7 @@ defmodule TimelineTest.Main do
   use ExUnit.Case
   import ShorterMaps
 
-  alias Timeline.{Main}
+  alias Timeline.{Main, Node}
 
   setup do
     add3_main =
@@ -13,6 +13,67 @@ defmodule TimelineTest.Main do
 
     ~M{add3_main}
   end
+
+#   test "ascii output" do
+#     assert Main.ascii_output(Main.new()) == []
+#   end
+
+  test "store value, lookup value with id" do
+    main =
+      Main.new
+      |> Main.add("cat", 1)
+
+    # assert main |> Main.ascii_output == ~w[1]
+    assert main |> Main.value(1) == "cat"
+  end
+
+  test "Track current move" do
+    move_1_main = Main.new |> Main.add("cat", 1)
+    move_2_main = move_1_main |> Main.add("dog", 2)
+
+    assert move_1_main |> Main.current == 1
+    assert move_2_main |> Main.current == 2
+  end
+
+  test "Undo moves Current back" do
+    main =
+      Main.new
+      |> Main.add("cat", 1)
+      |> Main.add("dog", 2)
+      |> Main.undo
+
+    assert main |> Main.current == 1
+    assert main |> Main.undo |> Main.current == 1
+  end
+
+  test "Redo" do
+    main =
+      Main.new
+      |> Main.add("cat", 1)
+      |> Main.add("dog", 2)
+      |> Main.undo
+      |> Main.redo
+
+    assert main |> Main.current == 2
+    assert main |> Main.redo |> Main.current == 2
+  end
+
+  test "History to current" do
+    main =
+      Main.new
+      |> Main.add("cat", 1)
+      |> Main.add("dog", 2)
+      |> Main.add("mouse", 3)
+      |> Main.undo
+
+    expected = [Node.new("cat", 1), Node.new("dog", 2)]
+
+    assert main |> Main.history_to_current == expected
+  end
+
+  # TODO history_to_current needs to be done with parent-checking after getting it to work simply first
+  # .so add parentId to Node
+
 
   # test "add", ~M{add3_main} do
     # assert add3_main |> Main.history == ~w[a1 a2 a3]
