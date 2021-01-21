@@ -99,7 +99,7 @@ defmodule Timeline.Main do
     end)
   end
 
-  def current(t), do: t.current_node_id
+  def current_node_id(t), do: t.current_node_id
 
 #   def ascii_output(t) do
 #     # if t.moves == ["1"] do

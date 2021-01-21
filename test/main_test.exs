@@ -26,8 +26,8 @@ defmodule TimelineTest.Main do
     move_1_main = Main.new |> Main.add("cat", 1)
     move_2_main = move_1_main |> Main.add("dog", 2)
 
-    assert move_1_main |> Main.current == 1
-    assert move_2_main |> Main.current == 2
+    assert move_1_main |> Main.current_node_id == 1
+    assert move_2_main |> Main.current_node_id == 2
   end
 
   test "Undo moves Current back" do
