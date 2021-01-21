@@ -46,7 +46,6 @@ defmodule TimelineTest.Main do
     assert main |> Main.undo |> Main.current == 1
   end
 
-  # TODO DRY cat_dog main
   test "Redo" do
     main =
       Main.new
