@@ -66,7 +66,7 @@ defmodule TimelineTest.Main do
       |> Main.add("mouse", 3)
       |> Main.undo
 
-    expected = [Node.new("cat", 1), Node.new("dog", 2)]
+    expected = [Node.new("cat", 1), Node.new("dog", 2, 1)]
 
     assert main |> Main.history_to_current == expected
   end
@@ -78,7 +78,7 @@ defmodule TimelineTest.Main do
       |> Main.add("cat", 1)
       |> Main.add("dog", 2)
 
-    assert main |> Main.get_node(2) == Node.new("dog", 2)
+    assert main |> Main.get_node(2) == Node.new("dog", 2, 1)
   end
 
   # tmp internal
