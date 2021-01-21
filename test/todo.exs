@@ -81,3 +81,5 @@
 # dry/clean/recursion history_to_current
 # first_child and redo() have same or similar logic, can dry one into the other I think
 # go through main and see which def's can be switched to defp without breaking
+# history_to_current test using override ids
+# .kill option in Main.add to override manual_id

@@ -53,7 +53,9 @@ defmodule Timeline.Main do
 
     hd_id = hd(new_list) |> Node.id
     parent = parent(t, hd_id)
-    _new_list = [parent | new_list]
+    new_list = [parent | new_list]
+
+    new_list = Enum.map(new_list, fn node -> node |> Node.value end)
   end
 
   # TODO might need (t, nil), do: nil -- or something as an extra def here, depending on if Find below errors or sends back nil

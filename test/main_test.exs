@@ -53,39 +53,47 @@ defmodule TimelineTest.Main do
     assert main |> Main.redo |> Main.current_node_id == 2
   end
 
-  test "History to current" do
-    main =
-      Main.new
-      |> Main.add("cat", 1)
-      |> Main.add("dog", 2)
-      |> Main.add("mouse", 3)
-      |> Main.undo
-      |> Main.add("cheese", 4)
-
-    expected = [Node.new("cat", 1), Node.new("dog", 2, 1), Node.new("cheese", 4, 2)]
-
-    assert main |> Main.history_to_current == expected
-  end
-
-  # test "Add undo redo without overriding id's" do
+  # TODO prob delete this after doing below test
+  # test "History to current" do
   #   main =
   #     Main.new
-  #     |> Main.undo
   #     |> Main.add("cat", 1)
   #     |> Main.add("dog", 2)
   #     |> Main.add("mouse", 3)
   #     |> Main.undo
   #     |> Main.add("cheese", 4)
-  #     |> Main.undo
-  #     |> Main.redo
-  #     |> Main.redo
-  #     |> Main.redo
-  #     |> Main.redo
-  #     |> IO.inspect(label: "")
 
-# #     assert main |> Main.first_child(1) == Node.new("dog", 2, 1)
-# #     assert main |> Main.first_child(4) == nil
+  #   expected = [Node.new("cat", 1), Node.new("dog", 2, 1), Node.new("cheese", 4, 2)]
+
+  #   assert main |> Main.history_to_current == expected
+  #   # main |> Main.history_to_current
+  #   # |> IO.inspect(label: "")
   # end
+
+  test "Add undo redo without overriding id's" do
+    main =
+      Main.new
+      |> Main.undo
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.add("mouse")
+      |> Main.undo
+      |> Main.add("cheese")
+      |> Main.undo
+      |> Main.redo
+      |> Main.redo
+      |> Main.redo
+      |> Main.redo
+
+    assert main |> Main.history_to_current == ~w[cat dog mouse]
+  end
+
+  test "history_to_current with 4 steps instead of 3 (for recursion)" do
+  end
+
+  # test "down" do
+  # # big test above, down, should end in ~w[cat dog cheese]
+  # # DRY the big prob
 
 #   # test "sort by creation order" do
 end
