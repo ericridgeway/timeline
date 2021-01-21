@@ -35,8 +35,19 @@ defmodule TimelineTest.Main do
     assert move_2_main |> Main.current == 2
   end
 
-  # test "Undo moves Current back" do
+  test "Undo moves Current back" do
+    main =
+      Main.new
+      |> Main.add("cat", 1)
+      |> Main.add("dog", 2)
+      |> Main.undo
+
+    assert main |> Main.current == 1
+  end
+
   # test "Redo" do
+  # test "Undo to edge" do
+  # test "Redo to edge" do
   # test "list all moves on single branch leading current (following his parents back) (better name?)" do
 
   # test "add", ~M{add3_main} do

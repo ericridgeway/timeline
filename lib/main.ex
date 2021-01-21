@@ -22,6 +22,10 @@ defmodule Timeline.Main do
     |> Node.value
   end
 
+  def undo(t) do
+    t |> Map.put(:current_node_id, t.current_node_id - 1)
+  end
+
   def current(t), do: t.current_node_id
 
 #   def ascii_output(t) do
