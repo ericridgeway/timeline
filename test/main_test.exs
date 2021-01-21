@@ -18,18 +18,23 @@ defmodule TimelineTest.Main do
 #     assert Main.ascii_output(Main.new()) == []
 #   end
 
-  test "1 move" do
+  test "store value, lookup value with id" do
     main =
       Main.new
       |> Main.add("cat", 1)
 
     # assert main |> Main.ascii_output == ~w[1]
     assert main |> Main.value(1) == "cat"
-    assert main |> Main.current == 1
   end
 
-  test "Current moves forward with add" do
+  test "Track current move" do
+    move_1_main = Main.new |> Main.add("cat", 1)
+    move_2_main = move_1_main |> Main.add("dog", 2)
+
+    assert move_1_main |> Main.current == 1
+    assert move_2_main |> Main.current == 2
   end
+
   # test "Undo moves Current back" do
   # test "Redo" do
   # test "list all moves on single branch leading current (following his parents back) (better name?)" do
