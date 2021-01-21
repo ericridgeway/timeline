@@ -10,6 +10,7 @@ defmodule Timeline.Main do
 
   # manual_id override for testing; expect errors if ID's repeated
   def add(t, value, manual_id \\ nil) do
+    # nodes = t.nodes ++ [Node.new(value, manual_id, t.current_node_id)]
     nodes = t.nodes ++ [Node.new(value, manual_id)]
     t
     |> Map.put(:nodes, nodes)

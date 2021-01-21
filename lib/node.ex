@@ -8,6 +8,8 @@ defmodule Timeline.Node do
     }
   end
 
+  # def parent(t), do: parent_id
+
   def value(t), do: t |> Map.get(:value)
 
   def match?(t, target_id), do: t.id == target_id

@@ -66,3 +66,4 @@
 # ascii for Current move, add * or something
 # .save current as a Node field, or keep Node uid's and save current as a Main field?
 # node generates it's own uuid prob
+# switch to parent/first-child(?) checks for undo-redo so I can stop using 1<->length checks on the id
