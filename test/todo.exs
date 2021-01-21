@@ -80,3 +80,4 @@
 # switch id/auto_id/default to fix the root/1/0 case
 # dry/clean/recursion history_to_current
 # first_child and redo() have same or similar logic, can dry one into the other I think
+# go through main and see which def's can be switched to defp without breaking
