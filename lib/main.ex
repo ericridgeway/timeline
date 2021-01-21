@@ -44,6 +44,11 @@ defmodule Timeline.Main do
     get_node(t, id) |> Node.value
   end
 
+  def parent(t, id) do
+    parent_id = get_node(t, id) |> Node.parent_id
+    get_node(t, parent_id)
+  end
+
   def current(t), do: t.current_node_id
 
 #   def ascii_output(t) do

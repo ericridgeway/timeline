@@ -9,7 +9,7 @@ defmodule Timeline.Node do
     }
   end
 
-  # def parent(t), do: parent_id
+  def parent_id(t), do: t.parent_id
 
   def value(t), do: t |> Map.get(:value)
 

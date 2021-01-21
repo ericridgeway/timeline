@@ -89,6 +89,7 @@ defmodule TimelineTest.Main do
       |> Main.add("dog", 2)
 
     # assert main |> Main.get_node(2) |> Main.parent == Node.new("cat", 1)
+    assert main |> Main.parent(2) == Node.new("cat", 1)
     # assert main |> Main.get_node(1) |> Node.first_move? == true
   end
 
