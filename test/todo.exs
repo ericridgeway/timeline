@@ -68,4 +68,5 @@
 # node generates it's own uuid prob
 # switch to parent/first-child(?) checks for undo-redo so I can stop using 1<->length checks on the id
 # .then I can go back to: Node.new should default parent_id to nil prob, not 1
+# .Main.first_move? check will need update accordingly too
 # Node.new checks in test slightly ugly, esp manually knowing what prev id is

@@ -88,10 +88,20 @@ defmodule TimelineTest.Main do
       |> Main.add("cat", 1)
       |> Main.add("dog", 2)
 
-    # assert main |> Main.get_node(2) |> Main.parent == Node.new("cat", 1)
     assert main |> Main.parent(2) == Node.new("cat", 1)
-    # assert main |> Main.get_node(1) |> Node.first_move? == true
+    assert main |> Main.first_move?(1) == true
   end
+
+  # # tmp internal
+  # test "children" do
+  #   main =
+  #     Main.new
+  #     |> Main.add("cat", 1)
+  #     |> Main.add("dog", 2)
+
+  #   assert main |> Main.children(1) == [Node.new("dog", 2, 1)]
+  #   # assert main |> Main.first_child(1) == Node.new("dog", 2, 1)
+  # end
 
   # TODO history_to_current needs to be done with parent-checking after getting it to work simply first
   # .so add parentId to Node
