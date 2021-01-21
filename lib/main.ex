@@ -53,6 +53,12 @@ defmodule Timeline.Main do
     get_node(t, id) |> Node.parent_id == 1
   end
 
+  def children(t, id) do
+    Enum.filter(t.nodes, fn node ->
+      node.parent_id == id
+    end)
+  end
+
   def current(t), do: t.current_node_id
 
 #   def ascii_output(t) do

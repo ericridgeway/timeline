@@ -70,3 +70,4 @@
 # .then I can go back to: Node.new should default parent_id to nil prob, not 1
 # .Main.first_move? check will need update accordingly too
 # Node.new checks in test slightly ugly, esp manually knowing what prev id is
+# switch id/auto_id/default to fix the root/1/0 case
