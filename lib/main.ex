@@ -170,14 +170,4 @@ defmodule Timeline.Main do
   defp current_node(t), do: get_node(t, t.current_node_id)
 
   defp just_ids(node_list), do: node_list |> Enum.map(&Node.id/1)
-
-
-#   def ascii_output(t) do
-#     # if t.moves == ["1"] do
-#     #   [
-#     # else
-#     #   []
-#     # end
-#     t.nodes
-#   end
 end
