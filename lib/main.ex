@@ -45,13 +45,14 @@ defmodule Timeline.Main do
   end
 
   def history_to_current(t) do
-    list_with_current_node = [get_node(t, t.current_node_id)]
-
-    add_parent_node_to_list(list_with_current_node, t)
+    t
+    |> current_node
+    |> List.wrap
+    |> add_all_parent_nodes_to_list(t)
     |> Enum.map(fn node -> node |> Node.value end)
   end
 
-  defp add_parent_node_to_list(old_list, t) do
+  defp add_all_parent_nodes_to_list(old_list, t) do
     hd_id = hd(old_list) |> Node.id
     parent = parent(t, hd_id)
 
@@ -60,7 +61,7 @@ defmodule Timeline.Main do
     else
       new_list = [parent | old_list]
 
-      add_parent_node_to_list(new_list, t)
+      add_all_parent_nodes_to_list(new_list, t)
     end
   end
 
@@ -103,7 +104,7 @@ defmodule Timeline.Main do
 
   def current_node_id(t), do: t.current_node_id
 
-  # defp current_node(t), do: get_node(t, t.current_node_id)
+  defp current_node(t), do: get_node(t, t.current_node_id)
 
 #   def ascii_output(t) do
 #     # if t.moves == ["1"] do
