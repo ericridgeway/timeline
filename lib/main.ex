@@ -120,6 +120,22 @@ defmodule Timeline.Main do
     current_node(t) != first_sibling
   end
 
+  def up_list(sibling_list, current_value) do
+    index = Enum.find_index(sibling_list, fn x -> x == current_value end)
+
+    if index <= 0 do
+      Enum.at(sibling_list, 0)
+    else
+      Enum.at(sibling_list, index - 1)
+    end
+  end
+
+  def down_list(sibling_list, current_value) do
+    sibling_list
+    |> Enum.reverse
+    |> up_list(current_value)
+  end
+
   def current_node_id(t), do: t.current_node_id
 
   defp current_node(t), do: get_node(t, t.current_node_id)

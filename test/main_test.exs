@@ -100,8 +100,22 @@ defmodule TimelineTest.Main do
     assert main |> Main.any_ups?
     refute main |> Main.add("cheese") |> Main.any_ups?
   end
-  # test "1 'up' on list" do
-  # end
+
+  # tmp internal
+  test "1 'up' on list" do
+    demo_list = ~w[a b c]
+
+    assert Main.up_list(demo_list, "b") == "a"
+    assert Main.up_list(demo_list, "a") == "a"
+  end
+
+  # tmp internal
+  test "1 'down' on list" do
+    demo_list = ~w[a b c]
+
+    assert Main.down_list(demo_list, "a") == "b"
+    assert Main.down_list(demo_list, "c") == "c"
+  end
 
   # TODO defp siblings when del this
   # tmp internal
