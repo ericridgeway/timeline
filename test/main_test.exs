@@ -91,15 +91,15 @@ defmodule TimelineTest.Main do
       |> Main.add("cheese")
       |> Main.up
 
-    # main_down = main_up |> Main.down
 
     assert empty_main |> Main.up |> Main.history_to_current == []
-
 
     assert main_up |> Main.history_to_current == ~w[cat dog mouse]
     assert main_up |> Main.up |> Main.history_to_current == ~w[cat dog mouse]
 
-    # assert main_down |> Main.history_to_current == ~w[cat dog mouse]
+    main_down = main_up |> Main.down
+
+    assert main_down |> Main.history_to_current == ~w[cat dog cheese]
   end
 
   test "Up with single add" do

@@ -87,3 +87,4 @@
 # history_to_current test using override ids
 # .kill option in Main.add to override manual_id
 # dedupe Main.up and .down
+# .I might not even need .list_down if I do up/down right
