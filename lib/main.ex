@@ -44,6 +44,7 @@ defmodule Timeline.Main do
     end
   end
 
+  def history_to_current(%{current_node_id: nil}), do: []
   def history_to_current(t) do
     t
     |> current_node
@@ -102,9 +103,65 @@ defmodule Timeline.Main do
     end
   end
 
+  def sibling_list(t, id) do
+    parent = parent(t, id)
+
+    # NOTE another if parent == nil check
+    if parent == nil do
+      t.nodes
+      |> Enum.filter(fn node -> Node.parent_id(node) == nil end)
+    else
+      children(t, parent |> Node.id)
+    end
+  end
+
+  def any_ups?(t) do
+    sibling_list = sibling_list(t, current_node_id(t))
+    first_sibling = hd(sibling_list)
+
+    current_node(t) != first_sibling
+  end
+
+  def up_list([], _), do: nil
+  def up_list(sibling_list, current_value) do
+    index = Enum.find_index(sibling_list, fn x -> x == current_value end)
+
+    if index <= 0 do
+      Enum.at(sibling_list, 0)
+    else
+      Enum.at(sibling_list, index - 1)
+    end
+  end
+
+  def down_list(sibling_list, current_value) do
+    sibling_list
+    |> Enum.reverse
+    |> up_list(current_value)
+  end
+
+  def up(t) do
+    slide(t, &up_list/2)
+  end
+
+  def down(t) do
+    slide(t, &down_list/2)
+  end
+
+  defp slide(t, next_item_on_list) do
+    next_id =
+      sibling_list(t, current_node_id(t))
+      |> just_ids()
+      |> next_item_on_list.(current_node_id(t))
+
+    t |> Map.put(:current_node_id, next_id)
+  end
+
   def current_node_id(t), do: t.current_node_id
 
   defp current_node(t), do: get_node(t, t.current_node_id)
+
+  defp just_ids(node_list), do: node_list |> Enum.map(&Node.id/1)
+
 
 #   def ascii_output(t) do
 #     # if t.moves == ["1"] do
