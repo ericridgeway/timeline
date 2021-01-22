@@ -89,3 +89,4 @@
 # .kill option in Main.add to override manual_id
 # dedupe Main.up and .down
 # .I might not even need .list_down if I do up/down right
+# solution to all the parent == nil checks might be similar to my Node.id nil, do: nil. I think that's how I solved it in original Chess.main. Might be as easy as making value(nil), do: nil checks for the other 2
