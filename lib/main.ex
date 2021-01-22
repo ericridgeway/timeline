@@ -45,15 +45,10 @@ defmodule Timeline.Main do
   end
 
   def history_to_current(t) do
-    new_list = [get_node(t, t.current_node_id)]
+    list_with_current_node = [get_node(t, t.current_node_id)]
 
-    new_list = add_parent_node_to_list(new_list, t)
-    new_list = add_parent_node_to_list(new_list, t)
-    new_list = add_parent_node_to_list(new_list, t)
-    new_list = add_parent_node_to_list(new_list, t)
-    new_list = add_parent_node_to_list(new_list, t)
-
-    new_list = Enum.map(new_list, fn node -> node |> Node.value end)
+    add_parent_node_to_list(list_with_current_node, t)
+    |> Enum.map(fn node -> node |> Node.value end)
   end
 
   defp add_parent_node_to_list(old_list, t) do
@@ -63,7 +58,9 @@ defmodule Timeline.Main do
     if parent == nil do
       old_list
     else
-      [parent | old_list]
+      new_list = [parent | old_list]
+
+      add_parent_node_to_list(new_list, t)
     end
   end
 

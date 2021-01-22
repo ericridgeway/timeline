@@ -2,7 +2,7 @@ defmodule TimelineTest.Main do
   use ExUnit.Case
   import ShorterMaps
 
-  alias Timeline.{Main, Node}
+  alias Timeline.{Main}
 
   setup do
     add3_main =
