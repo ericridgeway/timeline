@@ -136,6 +136,16 @@ defmodule Timeline.Main do
     |> up_list(current_value)
   end
 
+  def up(t) do
+    current_node_id = current_node_id(t)
+    sibling_list = sibling_list(t, current_node_id)
+    id_list = sibling_list |> Enum.map(&Node.id/1)
+
+    up_1 = up_list(id_list, current_node_id)
+
+    t |> Map.put(:current_node_id, up_1)
+  end
+
   def current_node_id(t), do: t.current_node_id
 
   defp current_node(t), do: get_node(t, t.current_node_id)
