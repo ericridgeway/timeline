@@ -107,8 +107,7 @@ defmodule TimelineTest.Main do
     assert single_main |> Main.up |> Main.history_to_current == ~w[boar]
   end
 
-  # tmp internal
-  test "anyUps?" do
+  test "any_ups?" do
     main =
       Main.new
       |> Main.add("cat")
@@ -119,6 +118,14 @@ defmodule TimelineTest.Main do
     assert main |> Main.any_ups?
     refute main |> Main.add("cheese") |> Main.any_ups?
   end
+
+  test "any_downs?" do
+    refute Main.new |> Main.add("tree") |> Main.any_downs?
+  end
+
+  # test "any_ups?/downs edgecase empty Main" do
+  #   refute Main.new |> Main.any_ups?
+  # end
 
   # tmp internal
   test "1 'up' on list" do
