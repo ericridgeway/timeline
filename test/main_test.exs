@@ -123,9 +123,9 @@ defmodule TimelineTest.Main do
     refute Main.new |> Main.add("tree") |> Main.any_downs?
   end
 
-  # test "any_ups?/downs edgecase empty Main" do
-  #   refute Main.new |> Main.any_ups?
-  # end
+  test "any_ups?/downs edgecase empty Main" do
+    refute Main.new |> Main.any_ups?
+  end
 
   # tmp internal
   test "1 'up' on list" do

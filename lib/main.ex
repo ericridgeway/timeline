@@ -162,6 +162,7 @@ defmodule Timeline.Main do
   def current_node_id(t), do: t.current_node_id
 
 
+  defp any_ups?(_, []), do: false
   defp any_ups?(t, sibling_list) do
     current_node(t) != hd(sibling_list)
   end
