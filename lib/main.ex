@@ -24,12 +24,11 @@ defmodule Timeline.Main do
   end
 
   def undo(t) do
-    parent = parent(t, t.current_node_id)
-    if parent == nil do
-      t
-    else
-      parent_id = parent |> Node.id
+    if any_undos?(t) do
+      parent_id = parent(t, t.current_node_id) |> Node.id
       t |> Map.put(:current_node_id, parent_id)
+    else
+      t
     end
   end
 
