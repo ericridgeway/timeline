@@ -147,19 +147,21 @@ defmodule Timeline.Main do
     slide(t, &down_list/2)
   end
 
-  defp slide(t, dir_func) do
-    current_node_id = current_node_id(t)
-    sibling_list = sibling_list(t, current_node_id)
-    id_list = sibling_list |> Enum.map(&Node.id/1)
+  defp slide(t, next_item_on_list) do
+    next_id =
+      sibling_list(t, current_node_id(t))
+      |> just_ids()
+      |> next_item_on_list.(current_node_id(t))
 
-    up_1 = dir_func.(id_list, current_node_id)
-
-    t |> Map.put(:current_node_id, up_1)
+    t |> Map.put(:current_node_id, next_id)
   end
 
   def current_node_id(t), do: t.current_node_id
 
   defp current_node(t), do: get_node(t, t.current_node_id)
+
+  defp just_ids(node_list), do: node_list |> Enum.map(&Node.id/1)
+
 
 #   def ascii_output(t) do
 #     # if t.moves == ["1"] do
