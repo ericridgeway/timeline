@@ -88,7 +88,20 @@ defmodule TimelineTest.Main do
     assert main |> Main.history_to_current == ~w[cat dog mouse]
   end
 
+  # tmp del after recursion
   test "history_to_current with 4 steps instead of 3 (for recursion)" do
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.add("mouse")
+      |> Main.undo
+      |> Main.add("cheese")
+      |> Main.undo
+      |> Main.redo
+      |> Main.add("bat")
+
+    assert main |> Main.history_to_current == ~w[cat dog mouse bat]
   end
 
   # test "down" do
