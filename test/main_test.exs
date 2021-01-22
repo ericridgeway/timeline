@@ -1,18 +1,8 @@
 defmodule TimelineTest.Main do
   use ExUnit.Case
-  import ShorterMaps
+  # import ShorterMaps
 
   alias Timeline.{Main}
-
-  setup do
-    add3_main =
-      Main.new()
-      |> Main.add("a1")
-      |> Main.add("a2")
-      |> Main.add("a3")
-
-    ~M{add3_main}
-  end
 
   test "store value, lookup value with id" do
     main =
@@ -61,6 +51,7 @@ defmodule TimelineTest.Main do
     assert single_main |> Main.history_to_current == ~w[boar]
   end
 
+  # NOTE del this test?
   test "Add undo redo without overriding id's" do
     main =
       Main.new
@@ -80,7 +71,7 @@ defmodule TimelineTest.Main do
     assert main |> Main.history_to_current == ~w[cat dog mouse bat]
   end
 
-  test "up down" do
+  test "up/down" do
     empty_main = Main.new
     main_up =
       Main.new
