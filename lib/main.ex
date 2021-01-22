@@ -32,19 +32,21 @@ defmodule Timeline.Main do
     end
   end
 
+  def redo(t) do
+    if any_redos?(t) do
+      first_child_id = children(t, t.current_node_id) |> hd |> Node.id
+      t |> Map.put(:current_node_id, first_child_id)
+    else
+      t
+    end
+  end
+
   def any_undos?(t) do
     if parent(t, t.current_node_id) == nil, do: false, else: true
   end
 
-  def redo(t) do
-    children = children(t, t.current_node_id)
-
-    if children == [] do
-      t
-    else
-      first_child_id = children |> hd |> Node.id
-      t |> Map.put(:current_node_id, first_child_id)
-    end
+  def any_redos?(t) do
+    if children(t, t.current_node_id) == [], do: false, else: true
   end
 
   def history_to_current(%{current_node_id: nil}), do: []
