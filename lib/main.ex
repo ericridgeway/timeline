@@ -121,6 +121,7 @@ defmodule Timeline.Main do
     current_node(t) != first_sibling
   end
 
+  def up_list([], _), do: nil
   def up_list(sibling_list, current_value) do
     index = Enum.find_index(sibling_list, fn x -> x == current_value end)
 

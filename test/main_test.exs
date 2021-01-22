@@ -94,11 +94,13 @@ defmodule TimelineTest.Main do
 
     # main_down = main_up |> Main.down
 
+    assert empty_main |> Main.up |> Main.history_to_current == []
+
+    # assert single_main |> Main.up |> Main.history_to_current == ~w[boar]
+
     assert main_up |> Main.history_to_current == ~w[cat dog mouse]
     assert main_up |> Main.up |> Main.history_to_current == ~w[cat dog mouse]
 
-    # assert empty_main |> Main.up |> Main.history_to_current == []
-    # assert empty_main |> Main.history_to_current == []
     # assert main_down |> Main.history_to_current == ~w[cat dog mouse]
   end
 
