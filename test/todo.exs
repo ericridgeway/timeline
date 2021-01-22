@@ -83,3 +83,6 @@
 # go through main and see which def's can be switched to defp without breaking
 # history_to_current test using override ids
 # .kill option in Main.add to override manual_id
+
+
+# draw mode- one of the steps for the x,y drawing mode will be "all first_child's" or all up's-to-leaf (and for current y and current x + that allFirstChilds>length, is something already there. Actually no, you'll need to loop for each of them and see if something already there. If you're clear, add them, if not, increase y by 1 and keep drawing

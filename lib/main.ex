@@ -107,7 +107,7 @@ defmodule Timeline.Main do
 
     # NOTE another if parent == nil check
     if parent == nil do
-      :error_for_now_test_next
+      []
     else
       children(t, parent |> Node.id)
     end

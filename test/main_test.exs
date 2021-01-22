@@ -105,6 +105,11 @@ defmodule TimelineTest.Main do
 
   # tmp internal
   test "siblings of first move" do
+    empty_main = Main.new
+    cat_main = Main.new |> Main.add("cat")
+
+    assert Main.sibling_list(empty_main, empty_main.current_node_id) == []
+    assert Main.sibling_list(cat_main, cat_main.current_node_id) == []
   end
 
   # # tmp internal
