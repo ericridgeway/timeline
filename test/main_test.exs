@@ -72,7 +72,49 @@ defmodule TimelineTest.Main do
     assert main |> Main.history_to_current == ~w[cat dog mouse bat]
   end
 
-  # test "down" do
+  test "up down" do
+    main_up =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.add("mouse")
+      |> Main.undo
+      |> Main.add("cheese")
+      # |> Main.up
+
+    # main_down = main_up |> Main.down
+
+    # assert main_up |> Main.history_to_current == ~w[cat dog cheese]
+    # assert main_down |> Main.history_to_current == ~w[cat dog mouse]
+  end
+
+  # TODO defp siblings when del this
+  # tmp internal
+  test "siblings" do
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.add("mouse")
+      |> Main.undo
+      |> Main.add("cheese")
+
+    assert Main.sibling_list(main, main.current_node_id) |> Enum.map(&Timeline.Node.value/1) ==
+      ~w[mouse cheese]
+  end
+
+  # tmp internal
+  test "siblings of first move" do
+  end
+
+  # # tmp internal
+  # test "sort children before giving back or checking first_child. Use sort_all_by_id" do
+  # end
+
+  # test "any undos?" (logic already exists under dif func name or maybe in undo clause, extract func and call that in the same spot in undo
+  # test "any redos?" do
+  # test anyUps, anyDowns?
+
   # # big test above, down, should end in ~w[cat dog cheese] or w/e
   # # DRY the big prob
 

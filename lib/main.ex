@@ -102,6 +102,17 @@ defmodule Timeline.Main do
     end
   end
 
+  def sibling_list(t, id) do
+    parent = parent(t, id)
+
+    # NOTE another if parent == nil check
+    if parent == nil do
+      :error_for_now_test_next
+    else
+      children(t, parent |> Node.id)
+    end
+  end
+
   def current_node_id(t), do: t.current_node_id
 
   defp current_node(t), do: get_node(t, t.current_node_id)
