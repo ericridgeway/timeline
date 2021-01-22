@@ -64,6 +64,7 @@
 # refactor some of the parent == nil if do else blocks
 # .might rethink what happens when parent/children == nil. The possible Node.id on nil instead of a node is brittle
 # test "Add undo redo without..." can be trimmed or dry'd with other tests prob
+# Might need to sort siblings/children by id order at some point, see if I can find an edge case. Might happen if I ever switch main node list to MapSet
 
 
 # draw mode- one of the steps for the x,y drawing mode will be "all first_child's" or all up's-to-leaf (and for current y and current x + that allFirstChilds>length, is something already there. Actually no, you'll need to loop for each of them and see if something already there. If you're clear, add them, if not, increase y by 1 and keep drawing
