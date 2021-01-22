@@ -125,10 +125,6 @@ defmodule Timeline.Main do
     any_ups?(t, sibling_list |> Enum.reverse)
   end
 
-  defp any_ups?(t, sibling_list) do
-    current_node(t) != hd(sibling_list)
-  end
-
   def up_list([], _), do: nil
   def up_list(sibling_list, current_value) do
     index = Enum.find_index(sibling_list, fn x -> x == current_value end)
@@ -164,6 +160,11 @@ defmodule Timeline.Main do
   end
 
   def current_node_id(t), do: t.current_node_id
+
+
+  defp any_ups?(t, sibling_list) do
+    current_node(t) != hd(sibling_list)
+  end
 
   defp current_node(t), do: get_node(t, t.current_node_id)
 
