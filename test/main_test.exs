@@ -127,6 +127,10 @@ defmodule TimelineTest.Main do
     refute Main.new |> Main.any_ups?
   end
 
+  test "any_undos? redos?" do
+    refute Main.new |> Main.any_undos?
+    # refute Main.new |> Main.any_redos?
+  end
 
   # test "any undos?" (logic already exists under dif func name or maybe in undo clause, extract func and call that in the same spot in undo
   # test "any redos?" do

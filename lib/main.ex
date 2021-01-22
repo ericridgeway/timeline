@@ -33,6 +33,10 @@ defmodule Timeline.Main do
     end
   end
 
+  def any_undos?(t) do
+    if parent(t, t.current_node_id) == nil, do: false, else: true
+  end
+
   def redo(t) do
     children = children(t, t.current_node_id)
 
