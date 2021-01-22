@@ -2,7 +2,7 @@ defmodule TimelineTest.Main do
   use ExUnit.Case
   import ShorterMaps
 
-  alias Timeline.{Main, Node}
+  alias Timeline.{Main}
 
   setup do
     add3_main =
@@ -53,23 +53,6 @@ defmodule TimelineTest.Main do
     assert main |> Main.redo |> Main.current_node_id == 2
   end
 
-  # TODO prob delete this after doing below test
-  # test "History to current" do
-  #   main =
-  #     Main.new
-  #     |> Main.add("cat", 1)
-  #     |> Main.add("dog", 2)
-  #     |> Main.add("mouse", 3)
-  #     |> Main.undo
-  #     |> Main.add("cheese", 4)
-
-  #   expected = [Node.new("cat", 1), Node.new("dog", 2, 1), Node.new("cheese", 4, 2)]
-
-  #   assert main |> Main.history_to_current == expected
-  #   # main |> Main.history_to_current
-  #   # |> IO.inspect(label: "")
-  # end
-
   test "Add undo redo without overriding id's" do
     main =
       Main.new
@@ -84,15 +67,13 @@ defmodule TimelineTest.Main do
       |> Main.redo
       |> Main.redo
       |> Main.redo
+      |> Main.add("bat")
 
-    assert main |> Main.history_to_current == ~w[cat dog mouse]
-  end
-
-  test "history_to_current with 4 steps instead of 3 (for recursion)" do
+    assert main |> Main.history_to_current == ~w[cat dog mouse bat]
   end
 
   # test "down" do
-  # # big test above, down, should end in ~w[cat dog cheese]
+  # # big test above, down, should end in ~w[cat dog cheese] or w/e
   # # DRY the big prob
 
 #   # test "sort by creation order" do

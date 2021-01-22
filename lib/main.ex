@@ -45,17 +45,24 @@ defmodule Timeline.Main do
   end
 
   def history_to_current(t) do
-    new_list = [get_node(t, t.current_node_id)]
+    t
+    |> current_node
+    |> List.wrap
+    |> add_all_parent_nodes_to_list(t)
+    |> Enum.map(&Node.value/1)
+  end
 
-    hd_id = hd(new_list) |> Node.id
+  defp add_all_parent_nodes_to_list(old_list, t) do
+    hd_id = hd(old_list) |> Node.id
     parent = parent(t, hd_id)
-    new_list = [parent | new_list]
 
-    hd_id = hd(new_list) |> Node.id
-    parent = parent(t, hd_id)
-    new_list = [parent | new_list]
+    if parent == nil do
+      old_list
+    else
+      new_list = [parent | old_list]
 
-    new_list = Enum.map(new_list, fn node -> node |> Node.value end)
+      add_all_parent_nodes_to_list(new_list, t)
+    end
   end
 
   # TODO might need (t, nil), do: nil -- or something as an extra def here, depending on if Find below errors or sends back nil
@@ -97,7 +104,7 @@ defmodule Timeline.Main do
 
   def current_node_id(t), do: t.current_node_id
 
-  # defp current_node(t), do: get_node(t, t.current_node_id)
+  defp current_node(t), do: get_node(t, t.current_node_id)
 
 #   def ascii_output(t) do
 #     # if t.moves == ["1"] do
