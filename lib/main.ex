@@ -140,21 +140,19 @@ defmodule Timeline.Main do
   end
 
   def up(t) do
-    current_node_id = current_node_id(t)
-    sibling_list = sibling_list(t, current_node_id)
-    id_list = sibling_list |> Enum.map(&Node.id/1)
-
-    up_1 = up_list(id_list, current_node_id)
-
-    t |> Map.put(:current_node_id, up_1)
+    slide(t, &up_list/2)
   end
 
   def down(t) do
+    slide(t, &down_list/2)
+  end
+
+  defp slide(t, dir_func) do
     current_node_id = current_node_id(t)
     sibling_list = sibling_list(t, current_node_id)
     id_list = sibling_list |> Enum.map(&Node.id/1)
 
-    up_1 = down_list(id_list, current_node_id)
+    up_1 = dir_func.(id_list, current_node_id)
 
     t |> Map.put(:current_node_id, up_1)
   end
