@@ -113,6 +113,13 @@ defmodule Timeline.Main do
     end
   end
 
+  def any_ups?(t) do
+    sibling_list = sibling_list(t, current_node_id(t))
+    first_sibling = hd(sibling_list)
+
+    current_node(t) != first_sibling
+  end
+
   def current_node_id(t), do: t.current_node_id
 
   defp current_node(t), do: get_node(t, t.current_node_id)

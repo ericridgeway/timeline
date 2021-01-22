@@ -72,21 +72,36 @@ defmodule TimelineTest.Main do
     assert main |> Main.history_to_current == ~w[cat dog mouse bat]
   end
 
-  test "up down" do
-    main_up =
+  # test "up down" do
+  #   main_up =
+  #     Main.new
+  #     |> Main.add("cat")
+  #     |> Main.add("dog")
+  #     |> Main.add("mouse")
+  #     |> Main.undo
+  #     |> Main.add("cheese")
+  #     |> Main.up
+
+  #   main_down = main_up |> Main.down
+
+  #   assert main_up |> Main.history_to_current == ~w[cat dog cheese]
+  #   assert main_down |> Main.history_to_current == ~w[cat dog mouse]
+  # end
+
+  # tmp internal
+  test "anyUps?" do
+    main =
       Main.new
       |> Main.add("cat")
       |> Main.add("dog")
-      |> Main.add("mouse")
       |> Main.undo
-      |> Main.add("cheese")
-      # |> Main.up
+      |> Main.add("mouse")
 
-    # main_down = main_up |> Main.down
-
-    # assert main_up |> Main.history_to_current == ~w[cat dog cheese]
-    # assert main_down |> Main.history_to_current == ~w[cat dog mouse]
+    assert main |> Main.any_ups?
+    refute main |> Main.add("cheese") |> Main.any_ups?
   end
+  # test "1 'up' on list" do
+  # end
 
   # TODO defp siblings when del this
   # tmp internal
