@@ -42,7 +42,8 @@ defmodule Timeline.Main do
   end
 
   def any_undos?(t) do
-    if parent(t, t.current_node_id) == nil, do: false, else: true
+    # if parent(t, t.current_node_id) == nil, do: false, else: true
+    if t.current_node_id == nil, do: false, else: true
   end
 
   def any_redos?(t) do

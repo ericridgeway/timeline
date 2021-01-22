@@ -28,7 +28,7 @@ defmodule TimelineTest.Main do
       |> Main.undo
 
     assert main |> Main.current_node_id == 1
-    assert main |> Main.undo |> Main.current_node_id == 1
+    assert main |> Main.undo |> Main.current_node_id == nil
   end
 
   test "Redo" do
@@ -121,5 +121,14 @@ defmodule TimelineTest.Main do
   test "any_undos? redos?" do
     refute Main.new |> Main.any_undos?
     refute Main.new |> Main.any_redos?
+  end
+
+  test "SHOULD be able to undo to []" do
+    empty_main = Main.new
+    move_1_main = empty_main |> Main.add("puppy")
+    undo_to_empty_main = move_1_main |> Main.undo
+
+    assert Main.any_undos?(move_1_main)
+    assert undo_to_empty_main |> Main.history_to_current == ~w[]
   end
 end

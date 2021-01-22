@@ -11,7 +11,8 @@ defmodule Timeline.Node do
 
   def match?(t, target_id), do: t.id == target_id
 
-  def parent_id(t), do: t.parent_id
+  def id(nil), do: nil
   def id(t), do: t.id
+  def parent_id(t), do: t.parent_id
   def value(t), do: t.value
 end
