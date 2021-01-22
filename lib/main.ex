@@ -44,6 +44,7 @@ defmodule Timeline.Main do
     end
   end
 
+  def history_to_current(%{current_node_id: nil}), do: []
   def history_to_current(t) do
     t
     |> current_node

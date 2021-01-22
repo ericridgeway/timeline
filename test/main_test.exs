@@ -53,6 +53,14 @@ defmodule TimelineTest.Main do
     assert main |> Main.redo |> Main.current_node_id == 2
   end
 
+  test "History to current" do
+    empty_main = Main.new
+    single_main = Main.new |> Main.add("boar")
+
+    assert empty_main |> Main.history_to_current == []
+    assert single_main |> Main.history_to_current == ~w[boar]
+  end
+
   test "Add undo redo without overriding id's" do
     main =
       Main.new
@@ -73,6 +81,8 @@ defmodule TimelineTest.Main do
   end
 
   test "up down" do
+    empty_main = Main.new
+    single_main = Main.new |> Main.add("boar")
     main_up =
       Main.new
       |> Main.add("cat")
@@ -86,6 +96,9 @@ defmodule TimelineTest.Main do
 
     assert main_up |> Main.history_to_current == ~w[cat dog mouse]
     assert main_up |> Main.up |> Main.history_to_current == ~w[cat dog mouse]
+
+    # assert empty_main |> Main.up |> Main.history_to_current == []
+    # assert empty_main |> Main.history_to_current == []
     # assert main_down |> Main.history_to_current == ~w[cat dog mouse]
   end
 
