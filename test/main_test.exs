@@ -82,7 +82,6 @@ defmodule TimelineTest.Main do
 
   test "up down" do
     empty_main = Main.new
-    single_main = Main.new |> Main.add("boar")
     main_up =
       Main.new
       |> Main.add("cat")
@@ -96,12 +95,18 @@ defmodule TimelineTest.Main do
 
     assert empty_main |> Main.up |> Main.history_to_current == []
 
-    # assert single_main |> Main.up |> Main.history_to_current == ~w[boar]
 
     assert main_up |> Main.history_to_current == ~w[cat dog mouse]
     assert main_up |> Main.up |> Main.history_to_current == ~w[cat dog mouse]
 
     # assert main_down |> Main.history_to_current == ~w[cat dog mouse]
+  end
+
+  test "Up with single add" do
+    single_main = Main.new |> Main.add("boar")
+
+    assert single_main |> Main.history_to_current == ~w[boar]
+    assert single_main |> Main.up |> Main.history_to_current == ~w[boar]
   end
 
   # tmp internal

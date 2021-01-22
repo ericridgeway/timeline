@@ -108,7 +108,8 @@ defmodule Timeline.Main do
 
     # NOTE another if parent == nil check
     if parent == nil do
-      []
+      t.nodes
+      |> Enum.filter(fn node -> Node.parent_id(node) == nil end)
     else
       children(t, parent |> Node.id)
     end
