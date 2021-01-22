@@ -49,7 +49,7 @@ defmodule Timeline.Main do
     |> current_node
     |> List.wrap
     |> add_all_parent_nodes_to_list(t)
-    |> Enum.map(fn node -> node |> Node.value end)
+    |> Enum.map(&Node.value/1)
   end
 
   defp add_all_parent_nodes_to_list(old_list, t) do
