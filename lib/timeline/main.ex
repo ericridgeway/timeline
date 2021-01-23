@@ -9,7 +9,6 @@ defmodule Timeline.Main do
     }
   end
 
-  # manual_id override for testing; expect errors if ID's repeated
   def add(t, value, manual_id \\ nil) do
     old_current_id = t.current_node_id
     new_current_id = manual_id || t.auto_id
@@ -42,7 +41,6 @@ defmodule Timeline.Main do
   end
 
   def any_undos?(t) do
-    # if parent(t, t.current_node_id) == nil, do: false, else: true
     if t.current_node_id == nil, do: false, else: true
   end
 
@@ -72,7 +70,6 @@ defmodule Timeline.Main do
     end
   end
 
-  # TODO might need (t, nil), do: nil -- or something as an extra def here, depending on if Find below errors or sends back nil
   def get_node(t, id) do
     t.nodes
     |> Enum.find(&Node.match?(&1, id))
