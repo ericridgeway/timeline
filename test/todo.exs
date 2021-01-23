@@ -94,3 +94,8 @@
 # go through main and see which def's can be switched to defp without breaking
 # solution to all the parent == nil checks might be similar to my Node.id nil, do: nil. I think that's how I solved it in original Chess.main. Might be as easy as making value(nil), do: nil checks for the other 2
 # delete new-just-made-add if duplicate parent and value fields or any previous (up/down shouldn't turn on if remaking a previous undone move)
+
+# chart minor--
+# use mapset instead of []
+
+# chart main--
