@@ -15,9 +15,14 @@ defmodule Timeline.Chart do
   end
 
   def new(main) do
-    Map.new
-    |> Map.put({1,1}, "cat")
-    |> Map.put({2,1}, "mouse")
+    history_to_current =
+      main
+      |> Main.history_to_current
+
+    Enum.reduce(1..length(history_to_current), Map.new, fn x, map ->
+      value = history_to_current |> Enum.at(x-1)
+      map |> Map.put({x,1}, value)
+    end)
   end
 
   def at(t, key) do
