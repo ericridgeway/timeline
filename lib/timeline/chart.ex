@@ -2,9 +2,11 @@ defmodule Timeline.Chart do
   alias Timeline.{Main}
 
   def output(t) do
-    Enum.reduce(t, [], fn {{x,y}, value}, output_list ->
-      output_list ++ ["#{x}-#{y}-#{value}"]
-    end)
+    [] ++ [
+      Enum.reduce(t, [], fn {{x,y}, value}, output_list ->
+        output_list ++ ["#{x}-#{y}-#{value}"]
+      end)
+    ]
   end
 
   def new(main) do

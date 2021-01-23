@@ -104,3 +104,5 @@
 # unhc max_y
 # + unhc new
 # outermost branch
+# use xy to determine place in output
+# .then dont need include it in text, ie "cat" instead of "1-1-cat"
