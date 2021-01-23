@@ -11,7 +11,7 @@ defmodule TimelineTest.Chart do
       |> Chart.new
 
     assert chart |> Chart.output == [
-      ~w[1-1-cat 2-1-dog],
+      ~w[cat dog],
     ]
   end
 
