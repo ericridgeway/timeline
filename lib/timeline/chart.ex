@@ -12,6 +12,18 @@ defmodule Timeline.Chart do
       animal = history_to_current |> Enum.at(x-1)
       "#{x}-1-#{animal}"
     end
-    # ~w[1-1-cat 2-1-dog]
   end
+
+  def new(main) do
+    Map.new
+    |> Map.put({1,1}, "cat")
+    |> Map.put({2,1}, "mouse")
+  end
+
+  def at(t, key) do
+    Map.get(t, key)
+  end
+
+  def max_x(t), do: map_size(t)
+  def max_y(_t), do: 1
 end
