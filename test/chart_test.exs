@@ -4,12 +4,13 @@ defmodule TimelineTest.Chart do
   alias Timeline.{Chart, Main}
 
   test "Chart output" do
-    main =
+    chart =
       Main.new
       |> Main.add("cat")
       |> Main.add("dog")
+      |> Chart.new
 
-    assert main |> Chart.output == ~w[1-1-cat 2-1-dog]
+    assert chart |> Chart.output == ~w[1-1-cat 2-1-dog]
   end
 
   test "Chart new" do
