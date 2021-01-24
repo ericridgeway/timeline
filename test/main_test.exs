@@ -182,7 +182,7 @@ defmodule TimelineTest.Main do
 
     assert main |> Main.first_child(nil) |> Timeline.Node.value == "cat"
     assert main |> Main.first_child(1) |> Timeline.Node.value == "dog"
-    # assert main |> Main.first_child(2) |> Timeline.Node.value == nil
+    assert main |> Main.first_child(2) |> Timeline.Node.value == nil
   end
 
   # internal?
