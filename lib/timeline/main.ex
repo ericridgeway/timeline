@@ -51,9 +51,7 @@ defmodule Timeline.Main do
   def history_to_current(%{current_node_id: nil}), do: []
   def history_to_current(t) do
     t
-    |> current_node
-    |> List.wrap
-    |> add_all_parent_nodes_to_list(t)
+    |> parents(t.current_node_id)
     |> Enum.map(&Node.value/1)
   end
 
@@ -72,10 +70,15 @@ defmodule Timeline.Main do
 
   def move_num(t, id) do
     t
+    |> parents(id)
+    |> length
+  end
+
+  defp parents(t, id) do
+    t
     |> get_node(id)
     |> List.wrap
     |> add_all_parent_nodes_to_list(t)
-    |> length
   end
 
   def get_node(t, id) do
