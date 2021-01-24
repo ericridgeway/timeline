@@ -132,7 +132,7 @@ defmodule TimelineTest.Main do
     assert undo_to_empty_main |> Main.history_to_current == ~w[]
   end
 
-  test "all_first_children, from 0 or from some node id" do
+  test "first_children" do
     main =
       Main.new
       |> Main.add("cat")
@@ -144,6 +144,19 @@ defmodule TimelineTest.Main do
     first_children_nodes = main |> Main.first_children
     first_children_values = first_children_nodes |> Main.just_values
     assert first_children_values == ~w[cat dog mouse]
+  end
+
+  test "first_children from some id" do
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.add("mouse")
+
+    cat_id = 1
+    first_children_nodes = main |> Main.first_children(cat_id)
+    first_children_values = first_children_nodes |> Main.just_values
+    assert first_children_values == ~w[dog mouse]
   end
 
   # tmp internal

@@ -164,26 +164,20 @@ defmodule Timeline.Main do
 
   def current_node_id(t), do: t.current_node_id
 
-  def first_children(t) do
-    list = [first_child(t, nil)]
-
-    list = func(list, t)
-    # list = func(list, t)
-    # list = func(list, t)
-    # list = func(list, t)
-    # list = func(list, t)
-
-    list |> Enum.reverse
+  def first_children(t, id \\ nil) do
+    [first_child(t, id)]
+    |> add_all_first_child_nodes_to_list(t)
+    |> Enum.reverse
   end
 
-  def func(list, t) do
+  defp add_all_first_child_nodes_to_list(list, t) do
     previous_node_id = list |> hd |> Node.id
     new_first_child = first_child(t, previous_node_id)
     if new_first_child == nil do
       list
     else
       [new_first_child | list]
-      |> func(t)
+      |> add_all_first_child_nodes_to_list(t)
     end
   end
 

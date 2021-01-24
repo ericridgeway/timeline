@@ -89,11 +89,16 @@
 # .I might not even need .list_down if I do up/down right
 
 
+# minor--
+# very minor, Main. add_all_parent_nodes_to_list and add_all_first_children are similar and could be DRY'd, or recursion done slightly diff. They're mostly fine and readable (as much as recursion can ever be...) as is tho
+
 # main--
 # kill option in Main.add to override manual_id
 # go through main and see which def's can be switched to defp without breaking
 # solution to all the parent == nil checks might be similar to my Node.id nil, do: nil. I think that's how I solved it in original Chess.main. Might be as easy as making value(nil), do: nil checks for the other 2
 # delete new-just-made-add if duplicate parent and value fields or any previous (up/down shouldn't turn on if remaking a previous undone move)
+# + recursion loop first_children
+# Main.first_children/2 hardcode assumes node id. Make a Main.add(_and_get_node) that returns {main, added_node} to get the id that way and use it in the test
 
 # chart minor--
 # use mapset instead of []
@@ -108,5 +113,3 @@
 # .then dont need include it in text, ie "cat" instead of "1-1-cat"
 # combine some of the tests once understand new vs ascii output better
 # the map objects dont just need x/y and value, they also need "trailing_arrow" of :up or :left
-# first_children case check a little wierd? Check after if over-guarding or needed for edge cases or something
-# recursion loop first_children
