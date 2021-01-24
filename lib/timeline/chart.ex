@@ -1,6 +1,7 @@
 defmodule Timeline.Chart do
   alias Timeline.{Main, Node}
   alias Timeline.Chart.Square
+  alias AsciiOutput.Main, as: AsciiOutput
 
   def new(main) do
     main
@@ -16,18 +17,15 @@ defmodule Timeline.Chart do
     end)
   end
 
-  def value_at(t, key) do
-    Map.get(t, key) |> Square.value
+  def ascii_output(t) do
+    value_fn = &(&1.value)
+    t |> AsciiOutput.ascii_output(value_fn)
   end
 
-  def max_x(t) do
-    t
-    |> Enum.map(fn {{x,_y}, _square} -> x end)
-    |> Enum.max
-  end
-  def max_y(t) do
-    t
-    |> Enum.map(fn {{_x,y}, _square} -> y end)
-    |> Enum.max
+  def max_x(t), do: t |> AsciiOutput.max_x
+  def max_y(t), do: t |> AsciiOutput.max_y
+
+  def value_at(t, key) do
+    Map.get(t, key) |> Square.value
   end
 end
