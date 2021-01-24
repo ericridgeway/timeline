@@ -104,6 +104,7 @@
 
 # chart minor--
 # use mapset instead of []
+# DRY max_x max_y
 
 # chart main--
 # + .output comes from Chart.new

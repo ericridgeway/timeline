@@ -3,18 +3,6 @@ defmodule TimelineTest.Chart do
 
   alias Timeline.{Chart, Main}
 
-  # test "Chart output" do
-  #   chart =
-  #     Main.new
-  #     |> Main.add("cat")
-  #     |> Main.add("dog")
-  #     |> Chart.new
-
-  #   assert chart |> Chart.output == [
-  #     ~w[cat dog],
-  #   ]
-  # end
-
   test "Chart new" do
     chart =
       Main.new
@@ -28,6 +16,19 @@ defmodule TimelineTest.Chart do
     assert chart |> Chart.value_at({2,1}) == "mouse"
     assert chart |> Chart.value_at({100,100}) == nil
   end
+
+  # test "Chart output" do
+  #   chart =
+  #     Main.new
+  #     |> Main.add("cat")
+  #     |> Main.add("dog")
+  #     |> Chart.new
+
+  #   assert chart |> Chart.ascii_output == [
+  #     ~w[cat dog],
+  #   ]
+  # end
+
 
   # test "new y" do
   #   chart =
