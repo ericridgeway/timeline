@@ -108,3 +108,5 @@
 # .then dont need include it in text, ie "cat" instead of "1-1-cat"
 # combine some of the tests once understand new vs ascii output better
 # the map objects dont just need x/y and value, they also need "trailing_arrow" of :up or :left
+# first_children case check a little wierd? Check after if over-guarding or needed for edge cases or something
+# recursion loop first_children
