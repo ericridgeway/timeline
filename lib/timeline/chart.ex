@@ -9,6 +9,7 @@ defmodule Timeline.Chart do
         output_list ++ ["#{value}"]
       end)
     ]
+    # TODO might be annoying to try to piecebypiece rewrite this when I get here next, instead maybe just restart it in the make sense way with enum rows, enum cols, like other times I've done ascii
   end
 
   def new(main) do
@@ -20,6 +21,8 @@ defmodule Timeline.Chart do
       value = history_to_current |> Enum.at(x-1)
       map |> Map.put({x,1}, value)
     end)
+
+    # draw y=1's
   end
 
   def at(t, key) do
