@@ -181,9 +181,9 @@ defmodule Timeline.Main do
     end
   end
 
-  def first_moves(t) do
-    Enum.filter(t.nodes, fn node -> Node.parent_id(node) == nil end)
-  end
+  # def first_moves(t) do
+  #   Enum.filter(t.nodes, fn node -> Node.parent_id(node) == nil end)
+  # end
 
   def just_values(node_list), do: Enum.map(node_list, &Node.value/1)
 

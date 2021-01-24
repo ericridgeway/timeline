@@ -159,17 +159,17 @@ defmodule TimelineTest.Main do
     assert first_children_values == ~w[dog mouse]
   end
 
-  # tmp internal
-  test "first_moves" do
-    main =
-      Main.new
-      |> Main.add("cat")
-      |> Main.undo
-      |> Main.add("dog")
+  # # tmp internal
+  # test "first_moves" do
+  #   main =
+  #     Main.new
+  #     |> Main.add("cat")
+  #     |> Main.undo
+  #     |> Main.add("dog")
 
-    assert main |> Main.first_moves |> Main.just_values == ~w[cat dog]
-    assert Main.new |> Main.first_moves |> Main.just_values == ~w[]
-  end
+  #   assert main |> Main.first_moves |> Main.just_values == ~w[cat dog]
+  #   assert Main.new |> Main.first_moves |> Main.just_values == ~w[]
+  # end
 
   # tmp internal
   test "first_child" do
@@ -182,6 +182,7 @@ defmodule TimelineTest.Main do
 
     assert main |> Main.first_child(nil) |> Timeline.Node.value == "cat"
     assert main |> Main.first_child(1) |> Timeline.Node.value == "dog"
+    # assert main |> Main.first_child(2) |> Timeline.Node.value == nil
   end
 
   # internal?
