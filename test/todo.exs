@@ -105,6 +105,7 @@
 # chart minor--
 # use mapset instead of []
 # DRY max_x max_y
+# /s- extract ascii output to a new project, takes a map of x,y tuple keys and ANY value, and a function for what to take out of the value that we'll use to draw the ascii (value -> value |> Node.id, or whatever), and then does the generalized ascii output
 
 # chart main--
 # + .output comes from Chart.new

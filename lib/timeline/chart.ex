@@ -11,6 +11,9 @@ defmodule Timeline.Chart do
       end)
     ]
     # TODO might be annoying to try to piecebypiece rewrite this when I get here next, instead maybe just restart it in the make sense way with enum rows, enum cols, like other times I've done ascii
+    # Enum.reduce(t, [], fn {pair, square}, row_list ->
+    # # TODO next here, just pass on to about-to-be-made AsciiOutput lib
+    # end)
   end
 
   def new(main) do
