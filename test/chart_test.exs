@@ -2,6 +2,7 @@ defmodule TimelineTest.Chart do
   use ExUnit.Case
 
   alias Timeline.{Chart, Main}
+  alias AsciiOutput.Main, as: AsciiOutput
 
   test "Chart new" do
     chart =
@@ -24,9 +25,11 @@ defmodule TimelineTest.Chart do
       |> Main.add("dog")
       |> Chart.new
 
-    # assert chart |> Chart.ascii_output == [
-    #   ~w[cat dog],
-    # ]
+    value_fn = &(&1.value)
+
+    assert chart |> AsciiOutput.ascii_output(value_fn) == [
+      ~w[cat dog],
+    ]
   end
 
 
