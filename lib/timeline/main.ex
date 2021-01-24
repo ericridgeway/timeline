@@ -173,7 +173,7 @@ defmodule Timeline.Main do
       if new_first_child == nil do
         list
       else
-        list = [new_first_child | list]
+        [new_first_child | list]
       end
 
     previous_node_id = list |> hd |> Node.id
@@ -182,37 +182,10 @@ defmodule Timeline.Main do
       if new_first_child == nil do
         list
       else
-        list = [new_first_child | list]
+        [new_first_child | list]
       end
 
-    previous_node_id = list |> hd |> Node.id
-    new_first_child = first_child(t, previous_node_id)
-    list =
-      if new_first_child == nil do
-        list
-      else
-        list = [new_first_child | list]
-      end
-
-    previous_node_id = list |> hd |> Node.id
-    new_first_child = first_child(t, previous_node_id)
-    list =
-      if new_first_child == nil do
-        list
-      else
-        list = [new_first_child | list]
-      end
-
-    previous_node_id = list |> hd |> Node.id
-    new_first_child = first_child(t, previous_node_id)
-    list =
-      if new_first_child == nil do
-        list
-      else
-        list = [new_first_child | list]
-      end
-
-    list = list |> Enum.reverse
+    list |> Enum.reverse
   end
 
   def first_moves(t) do
