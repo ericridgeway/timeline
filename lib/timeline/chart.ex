@@ -1,5 +1,6 @@
 defmodule Timeline.Chart do
   alias Timeline.{Main}
+  alias Timeline.Chart.Square
 
   def output(t) do
     # t
@@ -19,10 +20,12 @@ defmodule Timeline.Chart do
 
     Enum.reduce(1..length(history_to_current), Map.new, fn x, map ->
       value = history_to_current |> Enum.at(x-1)
+      square = Square.new()
       map |> Map.put({x,1}, value)
     end)
 
     # draw y=1's
+    # TODO next this is why I made Main.first_children, can use here next
   end
 
   def at(t, key) do
