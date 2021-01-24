@@ -29,6 +29,21 @@ defmodule TimelineTest.Chart do
     ]
   end
 
+  test "Leaf sibling" do
+    chart =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.undo
+      |> Main.add("mouse")
+      |> Chart.new
+
+    assert chart |> Chart.ascii_output == [
+      ~w[cat dog],
+      ~w[.   mouse],
+    ]
+  end
+
 
   # test "new y" do
   #   chart =
