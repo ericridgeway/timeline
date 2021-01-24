@@ -1,4 +1,4 @@
 %{
-  "ascii_output": {:git, "https://github.com/ericridgeway/AsciiOutput", "9efd7c9cdf27b21df90f57935e5c1e4aa005b9ad", [tag: "0.0.1"]},
+  "ascii_output": {:git, "https://github.com/ericridgeway/AsciiOutput", "1c44fcb5bb3d32981580eeae1844a9b6229f2a30", [tag: "0.0.2"]},
   "shorter_maps": {:hex, :shorter_maps, "2.2.5", "77b2e3632a49c72ca8aea2a47687767b3ad2623b9ade529ffe31f41865a32886", [:mix], [], "hexpm", "fbef59a9f13369f819111f500f0253678526ea8c717d794a224df41223bc88ab"},
 }
