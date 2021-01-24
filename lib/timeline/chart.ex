@@ -14,18 +14,25 @@ defmodule Timeline.Chart do
   end
 
   def new(main) do
-    history_to_current =
-      main
-      |> Main.history_to_current
+    # history_to_current =
+    #   main
+    #   |> Main.history_to_current
 
-    Enum.reduce(1..length(history_to_current), Map.new, fn x, map ->
-      value = history_to_current |> Enum.at(x-1)
-      square = Square.new()
-      map |> Map.put({x,1}, value)
-    end)
+    # Enum.reduce(1..length(history_to_current), Map.new, fn x, map ->
+    #   value = history_to_current |> Enum.at(x-1)
+    #   square = Square.new()
+    #   map |> Map.put({x,1}, value)
+    # end)
 
     # draw y=1's
     # TODO next this is why I made Main.first_children, can use here next
+    # main
+    # |> IO.inspect(label: "main")
+    # |> Main.first_children
+    # |> IO.inspect(label: "first_children")
+    # |> Enum.reduce(Map.new, fn node, map ->
+    #   Map.put(map, {x,y}
+    # end)
   end
 
   def at(t, key) do
