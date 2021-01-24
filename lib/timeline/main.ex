@@ -70,6 +70,14 @@ defmodule Timeline.Main do
     end
   end
 
+  def move_num(t, id) do
+    t
+    |> get_node(id)
+    |> List.wrap
+    |> add_all_parent_nodes_to_list(t)
+    |> length
+  end
+
   def get_node(t, id) do
     t.nodes
     |> Enum.find(&Node.match?(&1, id))

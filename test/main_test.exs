@@ -12,14 +12,6 @@ defmodule TimelineTest.Main do
     assert main |> Main.value(1) == "cat"
   end
 
-  test "Track current move" do
-    move_1_main = Main.new |> Main.add("cat", 1)
-    move_2_main = move_1_main |> Main.add("dog", 2)
-
-    assert move_1_main |> Main.current_node_id == 1
-    assert move_2_main |> Main.current_node_id == 2
-  end
-
   test "Undo" do
     main =
       Main.new
@@ -157,5 +149,20 @@ defmodule TimelineTest.Main do
     first_children_nodes = main |> Main.first_children(cat_id)
     first_children_values = first_children_nodes |> Main.just_values
     assert first_children_values == ~w[dog mouse]
+  end
+
+  test "Move num from some id" do
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.undo
+      |> Main.add("mouse")
+
+    cat_id = 1
+    mouse_id = 3
+
+    assert main |> Main.move_num(cat_id) == 1
+    assert main |> Main.move_num(mouse_id) == 2
   end
 end
