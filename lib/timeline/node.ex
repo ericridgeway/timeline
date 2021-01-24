@@ -12,6 +12,10 @@ defmodule Timeline.Node do
 
   def id(nil), do: nil
   def id(t), do: t.id
+
+  def parent_id(nil), do: nil
   def parent_id(t), do: t.parent_id
+
+  def value(nil), do: nil
   def value(t), do: t.value
 end

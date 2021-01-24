@@ -89,9 +89,9 @@ defmodule Timeline.Main do
     end
   end
 
-  def first_move?(t, id) do
-    get_node(t, id) |> Node.parent_id == 1
-  end
+  # def first_move?(node) do
+  #   node |> Node.parent_id == 1
+  # end
 
   def children(t, id) do
     Enum.filter(t.nodes, fn node ->
@@ -99,7 +99,7 @@ defmodule Timeline.Main do
     end)
   end
 
-  def first_child(t, id) do
+  defp first_child(t, id) do
     case children(t, id) do
       [] -> nil
       children -> children |> hd
@@ -163,6 +163,29 @@ defmodule Timeline.Main do
   end
 
   def current_node_id(t), do: t.current_node_id
+
+  def first_children(t, id \\ nil) do
+    [first_child(t, id)]
+    |> add_all_first_child_nodes_to_list(t)
+    |> Enum.reverse
+  end
+
+  defp add_all_first_child_nodes_to_list(list, t) do
+    previous_node_id = list |> hd |> Node.id
+    new_first_child = first_child(t, previous_node_id)
+    if new_first_child == nil do
+      list
+    else
+      [new_first_child | list]
+      |> add_all_first_child_nodes_to_list(t)
+    end
+  end
+
+  # def first_moves(t) do
+  #   Enum.filter(t.nodes, fn node -> Node.parent_id(node) == nil end)
+  # end
+
+  def just_values(node_list), do: Enum.map(node_list, &Node.value/1)
 
 
   defp any_ups?(_, []), do: false
