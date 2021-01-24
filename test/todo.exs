@@ -99,6 +99,8 @@
 # delete new-just-made-add if duplicate parent and value fields or any previous (up/down shouldn't turn on if remaking a previous undone move)
 # + recursion loop first_children
 # Main.first_children/2 hardcode assumes node id. Make a Main.add(_and_get_node) that returns {main, added_node} to get the id that way and use it in the test
+# bug- first_children(id) where id is a leaf gives you reverse list, all parents instead of all children, I think. Prob one of the elixir @ -1 things
+# + kill duplication between history_to_current and move_num by making parents(t, id)
 
 # chart minor--
 # use mapset instead of []

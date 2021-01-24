@@ -1,5 +1,6 @@
 defmodule Timeline.Chart do
-  alias Timeline.{Main}
+  alias Timeline.{Main, Node}
+  alias Timeline.Chart.Square
 
   def output(t) do
     # t
@@ -13,20 +14,21 @@ defmodule Timeline.Chart do
   end
 
   def new(main) do
-    history_to_current =
-      main
-      |> Main.history_to_current
+    main
+    |> Main.first_children
+    |> Enum.reduce(Map.new, fn node, map ->
+      id = node |> Node.id
+      value = node |> Node.value
+      x = Main.move_num(main, id)
+      y = 1
+      square = Square.new(id, value, :left)
 
-    Enum.reduce(1..length(history_to_current), Map.new, fn x, map ->
-      value = history_to_current |> Enum.at(x-1)
-      map |> Map.put({x,1}, value)
+      Map.put(map, {x,y}, square)
     end)
-
-    # draw y=1's
   end
 
-  def at(t, key) do
-    Map.get(t, key)
+  def value_at(t, key) do
+    Map.get(t, key) |> Square.value
   end
 
   def max_x(t), do: map_size(t)
