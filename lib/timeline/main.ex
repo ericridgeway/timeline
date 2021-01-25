@@ -131,20 +131,18 @@ defmodule Timeline.Main do
 
   def any_ups?(t) do
     sibling_list = sibling_list(t, current_node_id(t))
-    any_ups?(t, sibling_list)
+    head_of_list?(current_node(t), sibling_list)
   end
 
   def any_downs?(t, id \\ nil) do
     id = id || current_node_id(t)
     # sibling_list = sibling_list(t, current_node_id(t))
     sibling_list = sibling_list(t, id)
-    any_ups?(t, sibling_list |> Enum.reverse)
+    head_of_list?(current_node(t), sibling_list |> Enum.reverse)
   end
 
-  defp any_ups?(_, []), do: false
-  defp any_ups?(t, sibling_list) do
-    current_node(t) != hd(sibling_list)
-  end
+  defp head_of_list?(_, []), do: false
+  defp head_of_list?(item, list), do: item != hd(list)
 
   def up_list([], _), do: nil
   def up_list(sibling_list, current_value) do
