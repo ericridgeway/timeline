@@ -179,11 +179,11 @@ defmodule Timeline.Main do
     |> next_item_on_list_fn.(current_node_id(t))
   end
 
-  defp slide(t, next_item_on_list) do
+  defp slide(t, next_item_on_list_fn) do
     next_id =
       sibling_list(t, current_node_id(t))
       |> just_ids()
-      |> next_item_on_list.(current_node_id(t))
+      |> next_item_on_list_fn.(current_node_id(t))
 
     t |> Map.put(:current_node_id, next_id)
   end
@@ -215,7 +215,7 @@ defmodule Timeline.Main do
 
   def size(t), do: length(t.nodes)
 
-  defp current_node(t), do: get_node(t, t.current_node_id)
+  # defp current_node(t), do: get_node(t, t.current_node_id)
 
   defp just_ids(node_list), do: node_list |> Enum.map(&Node.id/1)
 end
