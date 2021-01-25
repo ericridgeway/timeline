@@ -178,12 +178,11 @@ defmodule TimelineTest.Main do
       |> Main.add("dog")
       |> Main.undo
       |> Main.add("mouse")
-      |> IO.inspect(label: "")
 
     dog_id = 2
     mouse_id = 3
 
-    assert main |> Main.any_downs?(dog_id)
-    refute main |> Main.any_downs?(mouse_id)
+    # assert main |> Main.any_downs?(dog_id)
+    # refute main |> Main.any_downs?(mouse_id)
   end
 end
