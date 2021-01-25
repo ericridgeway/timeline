@@ -20,16 +20,18 @@ defmodule Timeline.Chart do
   end
 
   defp loop(t, cur_check_node, y, main) do
-    id = cur_check_node |> Node.id
+    cur_check_id = cur_check_node |> Node.id
 
     if (main |> Main.size == 0) or (cur_check_node == nil and t != %{}) do
       t
     else
-      first_child = Main.first_child(main, id)
+      first_child = Main.first_child(main, cur_check_id)
       first_child_id = first_child |> Square.id
 
       if first_child == nil or already_added?(t, first_child_id) do
-        :step_b
+        # tmp step b
+
+
       else
         first_children = main |> Main.first_children
         proposed_map_adds =
@@ -42,6 +44,7 @@ defmodule Timeline.Chart do
 
             Map.put(proposed_map_adds, {x,y}, square)
           end)
+        # TODO push-down if overlap test, right here redoes loop with y + 1
       end
 
 
