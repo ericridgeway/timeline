@@ -30,7 +30,11 @@ defmodule Timeline.Chart do
 
       if first_child == nil or already_added?(t, first_child_id) do
         # tmp step b
-        # Main.any_downs?
+        if Main.any_downs?(main, cur_check_id) do
+          new_check_node = :tmp
+          loop(t, new_check_node, y, main)
+        else
+        end
 
 
       else
