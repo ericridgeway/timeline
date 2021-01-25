@@ -165,11 +165,13 @@ defmodule Timeline.Main do
   end
 
   def up(t) do
-    slide(t, &up_list/2)
+    next_id = next_id(t, current_node_id(t), &up_list/2)
+    update_current_node_id(t, next_id)
   end
 
   def down(t) do
-    slide(t, &down_list/2)
+    next_id = next_id(t, current_node_id(t), &down_list/2)
+    update_current_node_id(t, next_id)
   end
 
   def down_id(t, id) do
@@ -182,11 +184,7 @@ defmodule Timeline.Main do
     |> next_item_on_list_fn.(id)
   end
 
-  defp slide(t, next_item_on_list_fn) do
-    next_id = next_id(t, current_node_id(t), next_item_on_list_fn)
-
-    t |> Map.put(:current_node_id, next_id)
-  end
+  defp update_current_node_id(t, new), do: t |> Map.put(:current_node_id, new)
 
   def current_node_id(t), do: t.current_node_id
 
