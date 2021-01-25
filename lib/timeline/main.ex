@@ -134,9 +134,16 @@ defmodule Timeline.Main do
     any_ups?(t, sibling_list)
   end
 
-  def any_downs?(t) do
-    sibling_list = sibling_list(t, current_node_id(t))
+  def any_downs?(t, id \\ nil) do
+    id = id || current_node_id(t)
+    # sibling_list = sibling_list(t, current_node_id(t))
+    sibling_list = sibling_list(t, id)
     any_ups?(t, sibling_list |> Enum.reverse)
+  end
+
+  defp any_ups?(_, []), do: false
+  defp any_ups?(t, sibling_list) do
+    current_node(t) != hd(sibling_list)
   end
 
   def up_list([], _), do: nil
@@ -199,11 +206,6 @@ defmodule Timeline.Main do
   def just_values(node_list), do: Enum.map(node_list, &Node.value/1)
 
   def size(t), do: length(t.nodes)
-
-  defp any_ups?(_, []), do: false
-  defp any_ups?(t, sibling_list) do
-    current_node(t) != hd(sibling_list)
-  end
 
   defp current_node(t), do: get_node(t, t.current_node_id)
 

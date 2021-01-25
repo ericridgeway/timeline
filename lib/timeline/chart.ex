@@ -30,6 +30,7 @@ defmodule Timeline.Chart do
 
       if first_child == nil or already_added?(t, first_child_id) do
         # tmp step b
+        # Main.any_downs?
 
 
       else
