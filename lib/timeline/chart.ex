@@ -45,6 +45,7 @@ defmodule Timeline.Chart do
             Map.put(proposed_map_adds, {x,y}, square)
           end)
         # TODO push-down if overlap test, right here redoes loop with y + 1
+        # TODO loop cur-check = last on proposed_map_adds (use max_x?)
       end
 
 
