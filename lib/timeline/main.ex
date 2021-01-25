@@ -173,17 +173,17 @@ defmodule Timeline.Main do
   end
 
   def down_id(t, id) do
-    next_item_on_list_fn = &down_list/2
+    next_id(t, id, &down_list/2)
+  end
+
+  defp next_id(t, id, next_item_on_list_fn) do
     sibling_list(t, id)
     |> just_ids()
     |> next_item_on_list_fn.(id)
   end
 
   defp slide(t, next_item_on_list_fn) do
-    next_id =
-      sibling_list(t, current_node_id(t))
-      |> just_ids()
-      |> next_item_on_list_fn.(current_node_id(t))
+    next_id = next_id(t, current_node_id(t), next_item_on_list_fn)
 
     t |> Map.put(:current_node_id, next_id)
   end

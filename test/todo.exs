@@ -103,7 +103,7 @@
 # + kill duplication between history_to_current and move_num by making parents(t, id)
 # + figure out what's going on with the 3 versions of any_ups/downs def/defp, /2 id, /2 [], idk
 # + dry anyUpsDowns
-# dry slide and down_id
+# + dry slide and down_id
 
 # chart minor--
 # use mapset instead of []
