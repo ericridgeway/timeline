@@ -195,6 +195,8 @@ defmodule TimelineTest.Main do
       |> Main.add("dog")
       |> Main.undo
       |> Main.add("mouse")
+      |> Main.undo
+      |> Main.add("cheese")
 
     dog_id = 2
     mouse_id = 3

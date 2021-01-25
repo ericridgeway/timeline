@@ -174,9 +174,9 @@ defmodule Timeline.Main do
 
   def down_id(t, id) do
     next_item_on_list_fn = &down_list/2
-    sibling_list(t, current_node_id(t))
+    sibling_list(t, id)
     |> just_ids()
-    |> next_item_on_list_fn.(current_node_id(t))
+    |> next_item_on_list_fn.(id)
   end
 
   defp slide(t, next_item_on_list_fn) do
