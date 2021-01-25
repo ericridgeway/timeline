@@ -31,9 +31,12 @@ defmodule Timeline.Chart do
       if first_child == nil or already_added?(t, first_child_id) do
         # tmp step b
         if Main.any_downs?(main, cur_check_id) do
-          new_check_node = :tmp
-          loop(t, new_check_node, y, main)
+          down_id = Main.down_id(main, cur_check_id)
+          down_node = Main.get_node(main, down_id)
+          loop(t, down_node, y, main)
         else
+          parent_node = Main.parent(main, cur_check_id)
+          loop(t, parent_node, y, main)
         end
 
 
@@ -49,8 +52,13 @@ defmodule Timeline.Chart do
 
             Map.put(proposed_map_adds, {x,y}, square)
           end)
-        # TODO push-down if overlap test, right here redoes loop with y + 1
-        # TODO loop cur-check = last on proposed_map_adds (use max_x?)
+        if any_already_added?(t, proposed_map_adds) do
+          loop(t, cur_check_node, y+1, main)
+        else
+          t = Map.merge(t, proposed_map_adds)
+          last_child = first_children |> Enum.reverse |> hd
+          loop(t, last_child, y, main)
+        end
       end
 
 
@@ -70,6 +78,13 @@ defmodule Timeline.Chart do
     Map.get(t, key) |> Square.value
   end
 
+
+  defp any_already_added?(t, proposed_map_adds) do
+    Enum.any?(proposed_map_adds, fn {pair, square} ->
+      proposed_id = square |> Square.id
+      already_added?(t, proposed_id)
+    end)
+  end
 
   defp already_added?(t, id) do
     already_added_ids =
