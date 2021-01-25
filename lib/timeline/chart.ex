@@ -15,7 +15,13 @@ defmodule Timeline.Chart do
 
       Map.put(map, {x,y}, square)
     end)
+
+    # loop(%{}, nil)
   end
+
+  defp loop(t, cur_check_node) do
+  end
+
 
   def ascii_output(t) do
     value_fn = &(&1.value)

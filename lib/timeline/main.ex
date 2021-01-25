@@ -198,6 +198,7 @@ defmodule Timeline.Main do
 
   def just_values(node_list), do: Enum.map(node_list, &Node.value/1)
 
+  def size(t), do: length(t.nodes)
 
   defp any_ups?(_, []), do: false
   defp any_ups?(t, sibling_list) do
