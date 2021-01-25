@@ -110,7 +110,7 @@ defmodule Timeline.Main do
     end)
   end
 
-  defp first_child(t, id) do
+  def first_child(t, id) do
     case children(t, id) do
       [] -> nil
       children -> children |> hd

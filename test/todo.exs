@@ -118,5 +118,4 @@
 # combine some of the tests once understand new vs ascii output better
 # the map objects dont just need x/y and value, they also need "trailing_arrow" of :up or :left
 # ready for big mega loop I planned out, can do the couple other edgecase tests after too (overlapping branches)
-
-#
+# cleanup main loop with extractFunctions w/ readable names
