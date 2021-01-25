@@ -171,7 +171,7 @@ defmodule TimelineTest.Main do
     assert Main.new |> Main.add("moo") |> Main.size == 1
   end
 
-  test "any_downs? from some id" do
+  test "any_downs?/ups from some id" do
     main =
       Main.new
       |> Main.add("cat")
@@ -184,5 +184,7 @@ defmodule TimelineTest.Main do
 
     assert main |> Main.any_downs?(dog_id)
     refute main |> Main.any_downs?(mouse_id)
+
+    assert main |> Main.any_ups?(mouse_id)
   end
 end
