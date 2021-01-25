@@ -16,10 +16,26 @@ defmodule Timeline.Chart do
       Map.put(map, {x,y}, square)
     end)
 
-    # loop(%{}, nil)
+    loop(%{}, nil, main)
   end
 
-  defp loop(t, cur_check_node) do
+  defp loop(t, cur_check_node, main) do
+    id = cur_check_node |> Node.id
+
+    if (main |> Main.size == 0) or (cur_check_node == nil and t != %{}) do
+      t
+    else
+      first_child = Main.first_child(main, id)
+      first_child_id = first_child |> Square.id
+
+      if first_child == nil or already_added?(t, first_child_id) do
+        # step b
+      else
+      end
+
+      # proposed_map_adds =
+
+    end
   end
 
 
@@ -33,5 +49,12 @@ defmodule Timeline.Chart do
 
   def value_at(t, key) do
     Map.get(t, key) |> Square.value
+  end
+
+
+  defp already_added?(t, id) do
+    already_added_ids =
+      Enum.map(t, fn {pair, square} -> square |> Square.id end)
+    id in already_added_ids
   end
 end
