@@ -134,7 +134,7 @@ defmodule Timeline.Chart do
 
   defp already_added?(t, id) do
     already_added_ids =
-      Enum.map(t, fn {pair, square} -> square |> Square.id end)
+      Enum.map(t, fn {_pair, square} -> square |> Square.id end)
     id in already_added_ids
   end
 end

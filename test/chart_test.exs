@@ -43,4 +43,20 @@ defmodule TimelineTest.Chart do
       ~w[.    |mouse],
     ]
   end
+
+  test "Earlier sibling" do
+    chart =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("mouse")
+      |> Chart.new
+
+    # assert chart |> Chart.ascii_output == [
+    #   ~w[-cat   -dog],
+    #   ~w[|mouse .],
+    # ]
+  end
 end
