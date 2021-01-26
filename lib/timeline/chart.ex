@@ -4,17 +4,34 @@ defmodule Timeline.Chart do
   alias AsciiOutput.Main, as: AsciiOutput
 
   def new(main) do
-    main
-    |> Main.first_children
-    |> Enum.reduce(Map.new, fn node, map ->
-      id = node |> Node.id
-      value = node |> Node.value
-      x = Main.move_num(main, id)
-      y = 1
-      square = Square.new(id, value, :left)
+    t =
+      main
+      |> Main.first_children
+      |> Enum.reduce(Map.new, fn node, map ->
+        id = node |> Node.id
+        value = node |> Node.value
+        x = Main.move_num(main, id)
+        y = 1
+        square = Square.new(id, value, :left)
 
-      Map.put(map, {x,y}, square)
-    end)
+        Map.put(map, {x,y}, square)
+      end)
+
+    last_pair = {max_x(t), 1}
+    last_square = Map.get(t, last_pair)
+    last_id = last_square |> Square.id
+
+    if Main.any_downs?(main, last_id) do
+      down_id = Main.down_id(main, last_id)
+      down_value = Main.get_node(main, down_id) |> Node.value
+      y = 2
+      x = Main.move_num(main, down_id)
+      square = Square.new(down_id, down_value, :up)
+
+      Map.put(t, {x,y}, square)
+    else
+      t
+    end
 
     # loop(%{}, nil, 1, main)
   end
