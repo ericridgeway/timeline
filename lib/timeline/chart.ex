@@ -4,17 +4,17 @@ defmodule Timeline.Chart do
   alias AsciiOutput.Main, as: AsciiOutput
 
   def new(main) do
-    main
-    |> Main.first_children
-    |> Enum.reduce(Map.new, fn node, map ->
-      id = node |> Node.id
-      value = node |> Node.value
-      x = Main.move_num(main, id)
-      y = 1
-      square = Square.new(id, value, :left)
+    # main
+    # |> Main.first_children
+    # |> Enum.reduce(Map.new, fn node, map ->
+    #   id = node |> Node.id
+    #   value = node |> Node.value
+    #   x = Main.move_num(main, id)
+    #   y = 1
+    #   square = Square.new(id, value, :left)
 
-      Map.put(map, {x,y}, square)
-    end)
+    #   Map.put(map, {x,y}, square)
+    # end)
 
     loop(%{}, nil, 1, main)
   end
@@ -80,11 +80,17 @@ defmodule Timeline.Chart do
   end
 
   defp get_y(t, id) do
-    {{_x, y}, _square} =
+    pair_and_square =
       Enum.find(t, fn {pair, square} ->
         square |> Square.id == id
       end)
-    y
+
+    if pair_and_square == nil do
+      :idk
+    else
+      {{_x, y}, _square} = pair_and_square
+      y
+    end
   end
 
   defp any_already_added?(t, proposed_map_adds) do
