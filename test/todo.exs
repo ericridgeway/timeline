@@ -123,3 +123,7 @@
 # ready for big mega loop I planned out, can do the couple other edgecase tests after too (overlapping branches)
 # cleanup main loop with extractFunctions w/ readable names
 # name&extract anon func in asciiOutput
+
+# chart main--
+# prev
+# hardcoded 1..100 & cut&paste inst loops, see notebk

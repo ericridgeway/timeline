@@ -17,7 +17,7 @@ defmodule TimelineTest.Chart do
     assert chart |> Chart.value_at({100,100}) == nil
   end
 
-  test "Ascii output" do
+  test "Just first row" do
     chart =
       Main.new
       |> Main.add("cat")
@@ -29,18 +29,21 @@ defmodule TimelineTest.Chart do
     ]
   end
 
-  test "Leaf sibling" do
+  test "Only down-from-ups" do
     chart =
       Main.new
       |> Main.add("cat")
       |> Main.add("dog")
       |> Main.undo
       |> Main.add("mouse")
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("monkey")
       |> Chart.new
 
     assert chart |> Chart.ascii_output == [
-      ~w[-cat -dog],
-      ~w[.    |mouse],
+      ~w[-cat    -dog],
+      ~w[|monkey |mouse],
     ]
   end
 

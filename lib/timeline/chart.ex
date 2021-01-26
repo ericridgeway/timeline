@@ -4,6 +4,7 @@ defmodule Timeline.Chart do
   alias AsciiOutput.Main, as: AsciiOutput
 
   def new(main) do
+    # draw_first_row
     t =
       main
       |> Main.first_children
@@ -12,16 +13,58 @@ defmodule Timeline.Chart do
         add_square(map, main, 1, id, :left)
       end)
 
-    last_pair = {max_x(t), 1}
-    last_square = Map.get(t, last_pair)
-    last_id = last_square |> Square.id
+    # draw_row
+    cur_y = 2
+    t =
+      Enum.reduce(1..100, t, fn cur_x, new_t ->
+        cur_pair = {cur_x, cur_y}
 
-    if Main.any_downs?(main, last_id) do
-      down_id = Main.down_id(main, last_id)
-      add_square(t, main, 2, down_id, :up)
-    else
-      t
-    end
+        # # check_left
+        # if cur_x-1 == 0 do
+        #   :no_left_todo,
+        # else
+        #   left_pair = {cur_x-1, cur_y}
+
+        #   # left filled?
+        #   if new_t |> Map.has_key?(left_pair) do
+        #     # TODO
+        #   else
+        #   end
+
+        # end
+
+        # check_up
+        up_pair = {cur_x, cur_y-1}
+        # up filled?
+        new_t =
+          if new_t |> Map.has_key?(up_pair) do
+            # up_has_down?
+            up_id = Map.get(new_t, up_pair) |> Square.id
+            if Main.any_downs?(main, up_id) do
+              down_id = Main.down_id(main, up_id)
+
+              add_square(new_t, main, cur_y, down_id, :up)
+            else
+              new_t
+            end
+
+          else
+            new_t
+          end
+
+      end)
+
+    # last_pair = {max_x(t), 1}
+    # last_square = Map.get(t, last_pair)
+    # last_id = last_square |> Square.id
+
+    # if Main.any_downs?(main, last_id) do
+    #   down_id = Main.down_id(main, last_id)
+    #   add_square(t, main, 2, down_id, :up)
+    # else
+    #   t
+    # end
+
 
     # loop(%{}, nil, 1, main)
   end
