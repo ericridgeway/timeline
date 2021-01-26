@@ -9,12 +9,7 @@ defmodule Timeline.Chart do
       |> Main.first_children
       |> Enum.reduce(Map.new, fn node, map ->
         id = node |> Node.id
-        value = node |> Node.value
-        x = Main.move_num(main, id)
-        y = 1
-        square = Square.new(id, value, :left)
-
-        Map.put(map, {x,y}, square)
+        add_square(map, main, 1, id, :left)
       end)
 
     last_pair = {max_x(t), 1}
