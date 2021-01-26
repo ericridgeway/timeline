@@ -19,7 +19,7 @@ defmodule Timeline.Chart do
     loop(%{}, nil, 1, main)
   end
 
-  defp loop(t, cur_check_node, y, main) do
+  defp loop(t, cur_check_node, y, main, force_draw \\ false) do
     IO.puts "*****starttt"; require InspectVars; InspectVars.inspect([t, cur_check_node, y])
     cur_check_id = cur_check_node |> Node.id
 
@@ -30,13 +30,13 @@ defmodule Timeline.Chart do
       first_child = Main.first_child(main, cur_check_id)
       first_child_id = first_child |> Square.id
 
-      if first_child == nil or already_added?(t, first_child_id) do
+      if not(force_draw) and (first_child == nil or already_added?(t, first_child_id)) do
         # tmp step b
         if Main.any_downs?(main, cur_check_id) do
           down_id = Main.down_id(main, cur_check_id)
           down_node = Main.get_node(main, down_id)
           IO.puts "any_downs? true, go down"
-          loop(t, down_node, y+1, main)
+          loop(t, down_node, y+1, main, true)
         else
           parent_node = Main.parent(main, cur_check_id)
           parent_y = get_y(t, parent_node |> Node.id)
@@ -46,7 +46,7 @@ defmodule Timeline.Chart do
 
 
       else
-        first_children = main |> Main.first_children
+        first_children = main |> Main.first_children(cur_check_id)
         proposed_map_adds =
           Enum.reduce(first_children, %{}, fn proposed_node, proposed_map_adds ->
             proposed_id = proposed_node |> Node.id
