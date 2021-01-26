@@ -41,20 +41,31 @@ defmodule Timeline.Chart do
     Enum.reduce(1..100, t, fn cur_x, new_t ->
       cur_pair = {cur_x, cur_y}
 
-      # # check_left
-      # new_t =
-      #   if cur_x-1 == 0 do
-      #     new_t
-      #   else
-      #     left_pair = {cur_x-1, cur_y}
+      # check_left
+      new_t =
+        if cur_x-1 == 0 do
+          new_t
+        else
+          left_pair = {cur_x-1, cur_y}
 
-      #     # left filled?
-      #     if new_t |> Map.has_key?(left_pair) do
-      #       # left_has_atleast_1_child?
-      #     else
-      #     end
+          # left filled?
+          if new_t |> Map.has_key?(left_pair) do
+            # left_has_atleast_1_child?
+            left_id = Map.get(new_t, left_pair) |> Square.id
+            if Main.any_children?(main, left_id) do
+              # NOTE SLIGHTLY diff from below. First_child returns node inst of id like below. Maybe make a right_id func to get them mostly the same for DRYing
+              right_id = Main.first_child(main, left_id) |> Node.id
 
-      #   end
+              add_square(new_t, main, cur_y, right_id, :left)
+            else
+              new_t
+            end
+
+          else
+            new_t
+          end
+
+        end
 
 
         # check_up
