@@ -75,7 +75,16 @@ defmodule Timeline.Chart do
 
 
   def ascii_output(t) do
-    value_fn = &(&1.value)
+    value_fn = fn square ->
+      value = square |> Square.value
+      source_direction = square |> Square.source_direction
+      source_ascii =
+        case source_direction do
+          :up -> "|"
+          _left -> "-"
+        end
+        "#{source_ascii}#{value}"
+    end
     t |> AsciiOutput.ascii_output(value_fn)
   end
 

@@ -25,7 +25,7 @@ defmodule TimelineTest.Chart do
       |> Chart.new
 
     assert chart |> Chart.ascii_output == [
-      ~w[cat dog],
+      ~w[-cat -dog],
     ]
   end
 
