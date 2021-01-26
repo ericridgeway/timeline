@@ -43,34 +43,4 @@ defmodule TimelineTest.Chart do
       ~w[.    |mouse],
     ]
   end
-
-
-  # test "new y" do
-  #   chart =
-  #     Main.new
-  #     |> Main.add("cat")
-  #     |> Main.add("dog")
-  #     |> Main.undo
-  #     |> Main.add("mouse")
-  #     |> Chart.new
-
-# #     assert chart |> Chart.output == [
-# #       ~w[cat dog],
-# #       ~w[.   mouse],
-# #     ]
-  # end
-
-  # # tmp internal
-  # test "xy map made correct" do
-  #   chart =
-  #     Main.new
-  #     |> Main.add("cat")
-  #     |> Main.add("dog")
-  #     |> Main.undo
-  #     |> Main.add("mouse")
-  #     |> Chart.new
-
-  #   # assert chart |> Chart.at({2,2}) == "mouse"
-  #   # assert chart |> Chart.max_y == 2
-  # end
 end
