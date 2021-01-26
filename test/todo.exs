@@ -127,3 +127,4 @@
 # chart main--
 # prev
 # hardcoded 1..100 & cut&paste inst loops, see notebk
+# pretty case statement with _unchanged(?) as last default new_t line

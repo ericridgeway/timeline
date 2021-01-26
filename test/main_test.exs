@@ -203,4 +203,17 @@ defmodule TimelineTest.Main do
 
     assert main |> Main.down_id(dog_id) == mouse_id
   end
+
+  test "any_children? from id" do
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+
+    cat_id = 1
+    dog_id = 2
+
+    assert main |> Main.any_children?(cat_id)
+    refute main |> Main.any_children?(dog_id)
+  end
 end

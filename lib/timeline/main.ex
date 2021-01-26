@@ -117,6 +117,8 @@ defmodule Timeline.Main do
     end
   end
 
+  def any_children?(t, id), do: first_child(t, id) != nil
+
   def sibling_list(t, id) do
     parent = parent(t, id)
 

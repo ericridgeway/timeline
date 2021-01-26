@@ -50,19 +50,20 @@ defmodule TimelineTest.Chart do
     ]
   end
 
-  test "Earlier sibling" do
+  test "From-left" do
     chart =
       Main.new
       |> Main.add("cat")
       |> Main.add("dog")
       |> Main.undo
       |> Main.undo
-      |> Main.add("mouse")
+      |> Main.add("monkey")
+      |> Main.add("cheese")
       |> Chart.new
 
     # assert chart |> Chart.ascii_output == [
-    #   ~w[-cat   -dog],
-    #   ~w[|mouse .],
+    #   ~w[-cat    -dog],
+    #   ~w[|monkey -cheese],
     # ]
   end
 end

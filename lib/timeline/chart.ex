@@ -41,19 +41,21 @@ defmodule Timeline.Chart do
     Enum.reduce(1..100, t, fn cur_x, new_t ->
       cur_pair = {cur_x, cur_y}
 
-        # # check_left
-        # if cur_x-1 == 0 do
-        #   :no_left_todo,
-        # else
-        #   left_pair = {cur_x-1, cur_y}
+      # # check_left
+      # new_t =
+      #   if cur_x-1 == 0 do
+      #     new_t
+      #   else
+      #     left_pair = {cur_x-1, cur_y}
 
-        #   # left filled?
-        #   if new_t |> Map.has_key?(left_pair) do
-        #     # TODO
-        #   else
-        #   end
+      #     # left filled?
+      #     if new_t |> Map.has_key?(left_pair) do
+      #       # left_has_atleast_1_child?
+      #     else
+      #     end
 
-        # end
+      #   end
+
 
         # check_up
       up_pair = {cur_x, cur_y-1}
