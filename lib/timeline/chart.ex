@@ -13,91 +13,10 @@ defmodule Timeline.Chart do
         add_square(map, main, 1, id, :left)
       end)
 
-    # draw_row
-    cur_y = 2
-    t =
-      Enum.reduce(1..100, t, fn cur_x, new_t ->
-        cur_pair = {cur_x, cur_y}
-
-        # # check_left
-        # if cur_x-1 == 0 do
-        #   :no_left_todo,
-        # else
-        #   left_pair = {cur_x-1, cur_y}
-
-        #   # left filled?
-        #   if new_t |> Map.has_key?(left_pair) do
-        #     # TODO
-        #   else
-        #   end
-
-        # end
-
-        # check_up
-        up_pair = {cur_x, cur_y-1}
-        # up filled?
-        new_t =
-          if new_t |> Map.has_key?(up_pair) do
-            # up_has_down?
-            up_id = Map.get(new_t, up_pair) |> Square.id
-            if Main.any_downs?(main, up_id) do
-              down_id = Main.down_id(main, up_id)
-
-              add_square(new_t, main, cur_y, down_id, :up)
-            else
-              new_t
-            end
-
-          else
-            new_t
-          end
-
-      end)
-
-
-
-
-
-    # draw_row
-    cur_y = 3
-    t =
-      Enum.reduce(1..100, t, fn cur_x, new_t ->
-        cur_pair = {cur_x, cur_y}
-
-        # # check_left
-        # if cur_x-1 == 0 do
-        #   :no_left_todo,
-        # else
-        #   left_pair = {cur_x-1, cur_y}
-
-        #   # left filled?
-        #   if new_t |> Map.has_key?(left_pair) do
-        #     # TODO
-        #   else
-        #   end
-
-        # end
-
-        # check_up
-        up_pair = {cur_x, cur_y-1}
-        # up filled?
-        new_t =
-          if new_t |> Map.has_key?(up_pair) do
-            # up_has_down?
-            up_id = Map.get(new_t, up_pair) |> Square.id
-            if Main.any_downs?(main, up_id) do
-              down_id = Main.down_id(main, up_id)
-
-              add_square(new_t, main, cur_y, down_id, :up)
-            else
-              new_t
-            end
-
-          else
-            new_t
-          end
-
-      end)
+    t = draw_row(t, main, 2)
+    t = draw_row(t, main, 3)
+    t = draw_row(t, main, 4)
+    t = draw_row(t, main, 5)
 
 
 
@@ -117,6 +36,46 @@ defmodule Timeline.Chart do
     # loop(%{}, nil, 1, main)
   end
 
+
+  defp draw_row(t, main, cur_y) do
+    Enum.reduce(1..100, t, fn cur_x, new_t ->
+      cur_pair = {cur_x, cur_y}
+
+        # # check_left
+        # if cur_x-1 == 0 do
+        #   :no_left_todo,
+        # else
+        #   left_pair = {cur_x-1, cur_y}
+
+        #   # left filled?
+        #   if new_t |> Map.has_key?(left_pair) do
+        #     # TODO
+        #   else
+        #   end
+
+        # end
+
+        # check_up
+      up_pair = {cur_x, cur_y-1}
+        # up filled?
+      new_t =
+        if new_t |> Map.has_key?(up_pair) do
+            # up_has_down?
+          up_id = Map.get(new_t, up_pair) |> Square.id
+          if Main.any_downs?(main, up_id) do
+            down_id = Main.down_id(main, up_id)
+
+            add_square(new_t, main, cur_y, down_id, :up)
+          else
+            new_t
+          end
+
+        else
+          new_t
+        end
+
+    end)
+  end
 
   defp add_square(t, main, y, id, source_direction) do
     value = Main.get_node(main, id) |> Node.value
