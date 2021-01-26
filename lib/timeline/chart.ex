@@ -36,7 +36,8 @@ defmodule Timeline.Chart do
           loop(t, down_node, y, main)
         else
           parent_node = Main.parent(main, cur_check_id)
-          loop(t, parent_node, y, main)
+          parent_y = get_y(t, parent_node |> Node.id)
+          loop(t, parent_node, parent_y, main)
         end
 
 
@@ -55,9 +56,9 @@ defmodule Timeline.Chart do
         if any_already_added?(t, proposed_map_adds) do
           loop(t, cur_check_node, y+1, main)
         else
-          t = Map.merge(t, proposed_map_adds)
+          new_t = Map.merge(t, proposed_map_adds)
           last_child = first_children |> Enum.reverse |> hd
-          loop(t, last_child, y, main)
+          loop(new_t, last_child, y, main)
         end
       end
 
@@ -78,6 +79,13 @@ defmodule Timeline.Chart do
     Map.get(t, key) |> Square.value
   end
 
+  defp get_y(t, id) do
+    {{_x, y}, _square} =
+      Enum.find(t, fn {pair, square} ->
+        square |> Square.id == id
+      end)
+    y
+  end
 
   defp any_already_added?(t, proposed_map_adds) do
     Enum.any?(proposed_map_adds, fn {pair, square} ->
