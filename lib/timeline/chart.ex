@@ -23,17 +23,21 @@ defmodule Timeline.Chart do
 
     if Main.any_downs?(main, last_id) do
       down_id = Main.down_id(main, last_id)
-      down_value = Main.get_node(main, down_id) |> Node.value
-      y = 2
-      x = Main.move_num(main, down_id)
-      square = Square.new(down_id, down_value, :up)
-
-      Map.put(t, {x,y}, square)
+      add_square(t, main, 2, down_id, :up)
     else
       t
     end
 
     # loop(%{}, nil, 1, main)
+  end
+
+
+  defp add_square(t, main, y, id, source_direction) do
+    value = Main.get_node(main, id) |> Node.value
+    x = Main.move_num(main, id)
+    square = Square.new(id, value, source_direction)
+
+    Map.put(t, {x,y}, square)
   end
 
   # defp loop(t, cur_check_node, y, main, force_draw \\ false) do
