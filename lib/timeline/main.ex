@@ -110,7 +110,7 @@ defmodule Timeline.Main do
     end)
   end
 
-  defp first_child(t, id) do
+  def first_child(t, id) do
     case children(t, id) do
       [] -> nil
       children -> children |> hd
@@ -129,15 +129,23 @@ defmodule Timeline.Main do
     end
   end
 
-  def any_ups?(t) do
-    sibling_list = sibling_list(t, current_node_id(t))
-    any_ups?(t, sibling_list)
+  def any_ups?(t, id \\ nil) do
+    first_sibling?(t, id)
   end
 
-  def any_downs?(t) do
-    sibling_list = sibling_list(t, current_node_id(t))
-    any_ups?(t, sibling_list |> Enum.reverse)
+  def any_downs?(t, id \\ nil) do
+    first_sibling?(t, id, :reverse)
   end
+
+  defp first_sibling?(t, id, reverse \\ false) do
+    id = id || current_node_id(t)
+    sibling_list = sibling_list(t, id)
+    sibling_list = if reverse, do: sibling_list |> Enum.reverse, else: sibling_list
+    head_of_list?(get_node(t, id), sibling_list)
+  end
+
+  defp head_of_list?(_, []), do: false
+  defp head_of_list?(item, list), do: item != hd(list)
 
   def up_list([], _), do: nil
   def up_list(sibling_list, current_value) do
@@ -157,21 +165,26 @@ defmodule Timeline.Main do
   end
 
   def up(t) do
-    slide(t, &up_list/2)
+    next_id = next_id(t, current_node_id(t), &up_list/2)
+    update_current_node_id(t, next_id)
   end
 
   def down(t) do
-    slide(t, &down_list/2)
+    next_id = next_id(t, current_node_id(t), &down_list/2)
+    update_current_node_id(t, next_id)
   end
 
-  defp slide(t, next_item_on_list) do
-    next_id =
-      sibling_list(t, current_node_id(t))
-      |> just_ids()
-      |> next_item_on_list.(current_node_id(t))
-
-    t |> Map.put(:current_node_id, next_id)
+  def down_id(t, id) do
+    next_id(t, id, &down_list/2)
   end
+
+  defp next_id(t, id, next_item_on_list_fn) do
+    sibling_list(t, id)
+    |> just_ids()
+    |> next_item_on_list_fn.(id)
+  end
+
+  defp update_current_node_id(t, new), do: t |> Map.put(:current_node_id, new)
 
   def current_node_id(t), do: t.current_node_id
 
@@ -200,12 +213,7 @@ defmodule Timeline.Main do
 
   def size(t), do: length(t.nodes)
 
-  defp any_ups?(_, []), do: false
-  defp any_ups?(t, sibling_list) do
-    current_node(t) != hd(sibling_list)
-  end
-
-  defp current_node(t), do: get_node(t, t.current_node_id)
+  # defp current_node(t), do: get_node(t, t.current_node_id)
 
   defp just_ids(node_list), do: node_list |> Enum.map(&Node.id/1)
 end

@@ -170,4 +170,37 @@ defmodule TimelineTest.Main do
     assert Main.new |> Main.size == 0
     assert Main.new |> Main.add("moo") |> Main.size == 1
   end
+
+  test "any_downs?/ups from some id" do
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.undo
+      |> Main.add("mouse")
+
+    dog_id = 2
+    mouse_id = 3
+
+    assert main |> Main.any_downs?(dog_id)
+    refute main |> Main.any_downs?(mouse_id)
+
+    assert main |> Main.any_ups?(mouse_id)
+  end
+
+  test "down_id from some id" do
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.undo
+      |> Main.add("mouse")
+      |> Main.undo
+      |> Main.add("cheese")
+
+    dog_id = 2
+    mouse_id = 3
+
+    assert main |> Main.down_id(dog_id) == mouse_id
+  end
 end

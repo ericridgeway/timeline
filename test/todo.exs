@@ -101,6 +101,9 @@
 # Main.first_children/2 hardcode assumes node id. Make a Main.add(_and_get_node) that returns {main, added_node} to get the id that way and use it in the test
 # bug- first_children(id) where id is a leaf gives you reverse list, all parents instead of all children, I think. Prob one of the elixir @ -1 things
 # + kill duplication between history_to_current and move_num by making parents(t, id)
+# + figure out what's going on with the 3 versions of any_ups/downs def/defp, /2 id, /2 [], idk
+# + dry anyUpsDowns
+# + dry slide and down_id
 
 # chart minor--
 # use mapset instead of []
@@ -118,5 +121,4 @@
 # combine some of the tests once understand new vs ascii output better
 # the map objects dont just need x/y and value, they also need "trailing_arrow" of :up or :left
 # ready for big mega loop I planned out, can do the couple other edgecase tests after too (overlapping branches)
-
-#
+# cleanup main loop with extractFunctions w/ readable names
