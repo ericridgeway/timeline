@@ -109,6 +109,7 @@
 # use mapset instead of []
 # DRY max_x max_y
 # /s- extract ascii output to a new project, takes a map of x,y tuple keys and ANY value, and a function for what to take out of the value that we'll use to draw the ascii (value -> value |> Node.id, or whatever), and then does the generalized ascii output
+# Chart.bump_ys, prob a particular Enum way to target and edit only specific thingies (inst of remaking entire map and just re-adding the dont-change ones)
 
 # chart main--
 # + .output comes from Chart.new

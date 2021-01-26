@@ -78,6 +78,14 @@ defmodule Timeline.Chart do
           if Main.any_downs?(main, up_id) do
             down_id = Main.down_id(main, up_id)
 
+            # bump_all_at_past_this_y_down_1 if overlap
+            new_t =
+              if Map.has_key?(new_t, cur_pair) do
+                bump_ys(new_t, cur_y)
+              else
+                new_t
+              end
+
             add_square(new_t, main, cur_y, down_id, :up)
           else
             new_t
@@ -96,6 +104,16 @@ defmodule Timeline.Chart do
     square = Square.new(id, value, source_direction)
 
     Map.put(t, {x,y}, square)
+  end
+
+  defp bump_ys(t, this_y_or_lower) do
+    Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
+      if y >= this_y_or_lower do
+        Map.put(new_t, {x, y+1}, square)
+      else
+        Map.put(new_t, pair, square)
+      end
+    end)
   end
 
   # defp loop(t, cur_check_node, y, main, force_draw \\ false) do

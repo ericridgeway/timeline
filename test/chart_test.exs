@@ -67,4 +67,24 @@ defmodule TimelineTest.Chart do
       ~w[|monkey -cheese -bird],
     ]
   end
+
+  test "from-up AND from-left, causing overlap, needs to bump down" do
+    chart =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.undo
+      |> Main.add("cheese")
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("monkey")
+      |> Main.add("mouse")
+      |> Chart.new
+
+    assert chart |> Chart.ascii_output == [
+      ~w[-cat    -dog],
+      ~w[.       |cheese],
+      ~w[|monkey -mouse],
+    ]
+  end
 end
