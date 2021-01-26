@@ -20,9 +20,11 @@ defmodule Timeline.Chart do
   end
 
   defp loop(t, cur_check_node, y, main) do
+    IO.puts "*****starttt"; require InspectVars; InspectVars.inspect([t, cur_check_node, y])
     cur_check_id = cur_check_node |> Node.id
 
     if (main |> Main.size == 0) or (cur_check_node == nil and t != %{}) do
+      IO.puts "finished, return t"
       t
     else
       first_child = Main.first_child(main, cur_check_id)
@@ -33,10 +35,12 @@ defmodule Timeline.Chart do
         if Main.any_downs?(main, cur_check_id) do
           down_id = Main.down_id(main, cur_check_id)
           down_node = Main.get_node(main, down_id)
-          loop(t, down_node, y, main)
+          IO.puts "any_downs? true, go down"
+          loop(t, down_node, y+1, main)
         else
           parent_node = Main.parent(main, cur_check_id)
           parent_y = get_y(t, parent_node |> Node.id)
+          IO.puts "go parent"
           loop(t, parent_node, parent_y, main)
         end
 
@@ -53,11 +57,14 @@ defmodule Timeline.Chart do
 
             Map.put(proposed_map_adds, {x,y}, square)
           end)
+          |> IO.inspect(label: "proposed_map_adds")
         if any_already_added?(t, proposed_map_adds) do
+          IO.puts "111111111already added?"
           loop(t, cur_check_node, y+1, main)
         else
           new_t = Map.merge(t, proposed_map_adds)
           last_child = first_children |> Enum.reverse |> hd
+          IO.puts "addProposedAndRunWithLast"; require InspectVars; InspectVars.inspect([new_t, last_child])
           loop(new_t, last_child, y, main)
         end
       end
