@@ -17,6 +17,9 @@ defmodule Timeline.Chart do
     t = draw_row(t, main, 3)
     t = draw_row(t, main, 4)
     t = draw_row(t, main, 5)
+    t = draw_row(t, main, 6)
+    t = draw_row(t, main, 7)
+    t = draw_row(t, main, 8)
   end
 
 
