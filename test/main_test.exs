@@ -241,5 +241,6 @@ defmodule TimelineTest.Main do
       |> Main.add("mouse")
 
     assert main |> Main.longest_num_moves == 2
+    assert Main.new |> Main.longest_num_moves == 0
   end
 end
