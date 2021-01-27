@@ -124,6 +124,29 @@ defmodule TimelineTest.Chart do
     ]
   end
 
+  test "incorrect placeholder?" do
+    chart =
+      Main.new
+      |> Main.add("a")
+      |> Main.add("b")
+      |> Main.add("c")
+      |> Main.undo
+      |> Main.add("d")
+      |> Main.undo
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("e")
+      |> Main.add("f")
+      |> Main.add("g")
+      |> Chart.new
+
+    assert chart |> Chart.ascii_output == [
+      ~w[-a -b -c],
+      ~w[|  .  |d],
+      ~w[|e -f -g],
+    ]
+  end
+
   test "no error if empty timeline" do
     assert Main.new |> Chart.new == %{}
     assert Main.new |> Chart.new |> Chart.max_x == 0

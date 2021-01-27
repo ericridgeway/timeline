@@ -110,7 +110,8 @@ defmodule Timeline.Chart do
     Map.has_key?(t, pair) and not placeholder?(t, pair)
   end
 
-  defp add_placeholder_square_if_empty(t, pair) do
+  defp add_placeholder_square_if_empty_and_used_to_be_up(t, _, false), do: t
+  defp add_placeholder_square_if_empty_and_used_to_be_up(t, pair, true) do
     if not occupied?(t, pair) do
       square = Square.new_placeholder
       Map.put(t, pair, square)
@@ -130,9 +131,11 @@ defmodule Timeline.Chart do
   defp bump_ys(t, this_y_or_lower) do
     Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
       if y >= this_y_or_lower and not placeholder?(t, pair) do
+        pointed_up = square |> Square.source_direction == :up
+
         new_t
         |> Map.put({x, y+1}, square)
-        |> add_placeholder_square_if_empty(pair)
+        |> add_placeholder_square_if_empty_and_used_to_be_up(pair, pointed_up)
       else
         Map.put(new_t, pair, square)
       end
