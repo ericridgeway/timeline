@@ -132,9 +132,9 @@ defmodule Timeline.Chart do
   # all lower ys AND (all same ys IF they're also on parent id whitelist)
   defp bump_ys(t, cur_y, id_list) do
     Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
-      # if y >= this_y_or_lower and not placeholder?(t, pair) do
       square_id = square |> Square.id
-      if (y > cur_y and not placeholder?(t, pair)) or (y == cur_y and square_id in id_list and not placeholder?(t, pair)) do
+
+      if not placeholder?(t, pair) and ((y > cur_y) or (y == cur_y and square_id in id_list)) do
         pointed_up = square |> Square.source_direction == :up
 
         new_t
