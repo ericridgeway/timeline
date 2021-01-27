@@ -26,6 +26,7 @@ defmodule Timeline.Chart do
 
 
   defp draw_remaining_rows(t, main, cur_y \\ 2) do
+    IO.puts "loop"; require InspectVars; InspectVars.inspect([t, cur_y])
     t = draw_row(t, main, cur_y)
 
     if occupied_size(t) == Main.size(main) do
@@ -80,7 +81,8 @@ defmodule Timeline.Chart do
             # bump_all_at_past_this_y_down_1 if overlap
             new_t =
               if occupied?(new_t, cur_pair) do
-                new_t |> bump_ys(cur_y)
+                cur_id = Map.get(new_t, cur_pair) |> Square.id
+                new_t |> bump_ys(cur_y, parent_and_self_ids(main, cur_id))
               else
                 new_t
               end
@@ -128,9 +130,12 @@ defmodule Timeline.Chart do
     Map.put(t, {x,y}, square)
   end
 
-  defp bump_ys(t, this_y_or_lower) do
+  # bump_ys if target_y and in move_history
+  defp bump_ys(t, this_y_or_lower, id_list) do
     Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
-      if y >= this_y_or_lower and not placeholder?(t, pair) do
+      # if y >= this_y_or_lower and not placeholder?(t, pair) do
+      square_id = square |> Square.id
+      if y == this_y_or_lower and square_id in id_list and not placeholder?(t, pair) do
         pointed_up = square |> Square.source_direction == :up
 
         new_t
@@ -140,6 +145,12 @@ defmodule Timeline.Chart do
         Map.put(new_t, pair, square)
       end
     end)
+  end
+
+  defp parent_and_self_ids(main, id) do
+      main
+      |> Main.parents(id)
+      |> Enum.map(fn node -> node |> Node.id end)
   end
 
   defp placeholder?(t, pair) do

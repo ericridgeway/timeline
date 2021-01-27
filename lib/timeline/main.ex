@@ -79,7 +79,7 @@ defmodule Timeline.Main do
     |> length
   end
 
-  defp parents(t, id) do
+  def parents(t, id) do
     t
     |> get_node(id)
     |> List.wrap
