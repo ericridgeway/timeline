@@ -4,16 +4,8 @@ defmodule Timeline.Chart do
   alias AsciiOutput.Main, as: AsciiOutput
 
   def new(main) do
-    # draw_first_row
-    t =
-      main
-      |> Main.first_children
-      |> Enum.reduce(Map.new, fn node, map ->
-        id = node |> Node.id
-        add_square(map, main, 1, id, :left)
-      end)
-
-    draw_remaining_rows(t, main)
+    draw_first_row(main)
+    |> draw_remaining_rows(main)
   end
 
   def ascii_output(t) do
@@ -109,6 +101,14 @@ defmodule Timeline.Chart do
     end)
   end
 
+  defp draw_first_row(main) do
+    main
+    |> Main.first_children
+    |> Enum.reduce(Map.new, fn node, map ->
+      id = node |> Node.id
+      add_square(map, main, 1, id, :left)
+    end)
+  end
 
   defp occupied?(t, pair) do
     Map.has_key?(t, pair) and not placeholder?(t, pair)
