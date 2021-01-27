@@ -130,7 +130,7 @@
 # rename main.parents -> parent_and_self_nodes_from_id (or something)
 # chart.parent_and_self_ids should be in Main
 # func delete cur id and *all* children
-# fix same move same parent bug
+# + fix same move same parent bug
 
 
 # chart main--

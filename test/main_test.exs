@@ -256,4 +256,15 @@ defmodule TimelineTest.Main do
 
     assert original_main == undo_re_move_main
   end
+
+  test "anyUp/Down should always be false for move 0" do
+    main =
+      Main.new
+      |> Main.add("monkey")
+      |> Main.undo
+
+    refute Main.new |> Main.any_ups?
+    refute main |> Main.any_ups?
+    refute main |> Main.any_downs?
+  end
 end

@@ -146,11 +146,17 @@ defmodule Timeline.Main do
     end
   end
 
-  def any_ups?(t, id \\ nil) do
+  def any_ups?(t, id \\ nil)
+
+  def any_ups?(%{current_node_id: nil}, _), do: false
+  def any_ups?(t, id) do
     first_sibling?(t, id)
   end
 
-  def any_downs?(t, id \\ nil) do
+  def any_downs?(t, id \\ nil)
+
+  def any_downs?(%{current_node_id: nil}, _), do: false
+  def any_downs?(t, id) do
     first_sibling?(t, id, :reverse)
   end
 
