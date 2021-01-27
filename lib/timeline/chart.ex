@@ -129,17 +129,10 @@ defmodule Timeline.Chart do
     Map.put(t, {x,y}, square)
   end
 
-  # all lower ys AND (all same ys IF they're also on parent id whitelist)
   defp bump_ys(t, cur_y, id_list) do
     Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
-      square_id = square |> Square.id
 
-      placeholder? = placeholder?(t, pair)
-      past_cur_y? = y > cur_y
-
-      same_y? = y == cur_y
-      in_cur_branch? = square_id in id_list
-      same_y_and_in_cur_branch? = same_y? and in_cur_branch?
+      {placeholder?, past_cur_y?, same_y_and_in_cur_branch?} = valid_bump_checks(t, pair, y, cur_y, square, id_list)
 
       if not placeholder? and (past_cur_y? or same_y_and_in_cur_branch?) do
         pointed_up = square |> Square.source_direction == :up
@@ -151,6 +144,19 @@ defmodule Timeline.Chart do
         Map.put(new_t, pair, square)
       end
     end)
+  end
+
+  defp valid_bump_checks(t, pair, y, cur_y, square, id_list) do
+    square_id = square |> Square.id
+
+    placeholder? = placeholder?(t, pair)
+    past_cur_y? = y > cur_y
+
+    same_y? = y == cur_y
+    in_cur_branch? = square_id in id_list
+    same_y_and_in_cur_branch? = same_y? and in_cur_branch?
+
+    {placeholder?, past_cur_y?, same_y_and_in_cur_branch?}
   end
 
   defp parent_and_self_ids(main, id) do
