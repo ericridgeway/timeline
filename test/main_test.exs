@@ -217,6 +217,20 @@ defmodule TimelineTest.Main do
     refute main |> Main.any_children?(dog_id)
   end
 
+  test "warp current move to some id" do
+    cat_id = 1
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("mouse")
+      |> Main.warp_to(cat_id)
+
+    assert main |> Main.history_to_current == ~w[cat]
+  end
+
   test "Longest num moves" do
     main =
       Main.new
