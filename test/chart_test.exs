@@ -176,4 +176,15 @@ defmodule TimelineTest.Chart do
     assert Main.new |> Chart.new == %{}
     assert Main.new |> Chart.new |> Chart.max_x == 0
   end
+
+  test "infinite loop???" do
+    chart =
+      Main.new
+      |> Main.add("a")
+      |> Main.undo
+      |> Main.add("b")
+      |> Main.undo
+      |> Chart.new
+
+  end
 end

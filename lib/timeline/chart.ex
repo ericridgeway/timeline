@@ -26,10 +26,15 @@ defmodule Timeline.Chart do
 
 
   defp draw_remaining_rows(t, main, cur_y \\ 2) do
+    IO.puts ""; require InspectVars; InspectVars.inspect([t, cur_y])
     t = draw_row(t, main, cur_y)
 
-    if occupied_size(t) == Main.size(main) do
-      t
+    if occupied_size(t) >= Main.size(main) do
+      if occupied_size(t) == Main.size(main) do
+        t
+      else
+        {:error, :infinite_loop_drew_too_many_chart_xys}
+      end
     else
       draw_remaining_rows(t, main, cur_y + 1)
     end
