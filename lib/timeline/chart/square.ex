@@ -11,7 +11,7 @@ defmodule Timeline.Chart.Square do
 
   def new_placeholder(), do: new(nil, nil, :up) |> Map.put(:placeholder_square, true)
 
-  def placeholder?(t), do: t.placeholder_square
+  def placeholder?(t), do: Map.get(t||%{}, :placeholder_square)
 
   def id(t), do: Map.get(t||%{}, :id)
   def value(t), do: Map.get(t||%{}, :value)
