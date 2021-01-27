@@ -26,7 +26,6 @@ defmodule Timeline.Chart do
 
 
   defp draw_remaining_rows(t, main, cur_y \\ 2) do
-    IO.puts "loop"; require InspectVars; InspectVars.inspect([t, cur_y])
     t = draw_row(t, main, cur_y)
 
     if occupied_size(t) == Main.size(main) do
@@ -130,12 +129,12 @@ defmodule Timeline.Chart do
     Map.put(t, {x,y}, square)
   end
 
-  # bump_ys if target_y and in move_history
-  defp bump_ys(t, this_y_or_lower, id_list) do
+  # all lower ys AND (all same ys IF they're also on parent id whitelist)
+  defp bump_ys(t, cur_y, id_list) do
     Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
       # if y >= this_y_or_lower and not placeholder?(t, pair) do
       square_id = square |> Square.id
-      if y == this_y_or_lower and square_id in id_list and not placeholder?(t, pair) do
+      if (y > cur_y and not placeholder?(t, pair)) or (y == cur_y and square_id in id_list and not placeholder?(t, pair)) do
         pointed_up = square |> Square.source_direction == :up
 
         new_t
