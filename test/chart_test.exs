@@ -124,7 +124,7 @@ defmodule TimelineTest.Chart do
     ]
   end
 
-  test "incorrect placeholder?" do
+  test "Only leave up-extending placeholders if actually pushing down a from-up move" do
     chart =
       Main.new
       |> Main.add("a")
@@ -144,6 +144,31 @@ defmodule TimelineTest.Chart do
       ~w[-a -b -c],
       ~w[|  .  |d],
       ~w[|e -f -g],
+    ]
+  end
+
+  test "TODO" do
+    chart =
+      Main.new
+      |> Main.add("a")
+      |> Main.add("b")
+      |> Main.add("c")
+      |> Main.undo
+      |> Main.add("d")
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("e")
+      |> Main.add("f")
+      |> Main.undo
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("g")
+      |> Chart.new
+
+    assert chart |> Chart.ascii_output == [
+      ~w[-a -b -c],
+      ~w[|g |  |d],
+      ~w[.  |e -f],
     ]
   end
 
