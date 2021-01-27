@@ -10,6 +10,26 @@ defmodule Timeline.Main do
   end
 
   def add(t, value, manual_id \\ nil) do
+    IO.puts ""; require InspectVars; InspectVars.inspect([t, value])
+    # if do
+    # else
+
+    # repeat_move?
+    Enum.any?(t.nodes, fn existing_node ->
+      existing_parent_id = existing_node |> Node.parent_id
+      existing_value = existing_node |> Node.value
+      proposed_parent_id = t.current_node_id
+      proposed_value = value
+
+      existing_parent_id == proposed_parent_id and existing_value == proposed_value
+    end)
+    |> IO.inspect(label: "any?")
+
+      do_add(t, value, manual_id)
+    # end
+  end
+
+  defp do_add(t, value, manual_id) do
     old_current_id = t.current_node_id
     new_current_id = manual_id || t.auto_id
     new_auto_id = t.auto_id + 1
