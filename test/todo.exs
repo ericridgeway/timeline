@@ -127,6 +127,8 @@
 
 # move 0 should be :root (or something), not nil
 # instead of new checcking main.nodes, make a main function for empty? or something
+# rename main.parents -> parent_and_self_nodes_from_id (or something)
+# chart.parent_and_self_ids should be in Main
 
 
 # chart main--

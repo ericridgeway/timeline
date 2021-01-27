@@ -80,7 +80,8 @@ defmodule Timeline.Chart do
             # bump_all_at_past_this_y_down_1 if overlap
             new_t =
               if occupied?(new_t, cur_pair) do
-                new_t |> bump_ys(cur_y)
+                cur_id = Map.get(new_t, cur_pair) |> Square.id
+                new_t |> bump_ys(cur_y, parent_and_self_ids(main, cur_id))
               else
                 new_t
               end
@@ -128,9 +129,12 @@ defmodule Timeline.Chart do
     Map.put(t, {x,y}, square)
   end
 
-  defp bump_ys(t, this_y_or_lower) do
+  defp bump_ys(t, cur_y, id_list) do
     Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
-      if y >= this_y_or_lower and not placeholder?(t, pair) do
+
+      {placeholder?, past_cur_y?, same_y_and_in_cur_branch?} = valid_bump_checks(t, pair, y, cur_y, square, id_list)
+
+      if not placeholder? and (past_cur_y? or same_y_and_in_cur_branch?) do
         pointed_up = square |> Square.source_direction == :up
 
         new_t
@@ -140,6 +144,25 @@ defmodule Timeline.Chart do
         Map.put(new_t, pair, square)
       end
     end)
+  end
+
+  defp valid_bump_checks(t, pair, y, cur_y, square, id_list) do
+    square_id = square |> Square.id
+
+    placeholder? = placeholder?(t, pair)
+    past_cur_y? = y > cur_y
+
+    same_y? = y == cur_y
+    in_cur_branch? = square_id in id_list
+    same_y_and_in_cur_branch? = same_y? and in_cur_branch?
+
+    {placeholder?, past_cur_y?, same_y_and_in_cur_branch?}
+  end
+
+  defp parent_and_self_ids(main, id) do
+      main
+      |> Main.parents(id)
+      |> Enum.map(fn node -> node |> Node.id end)
   end
 
   defp placeholder?(t, pair) do
