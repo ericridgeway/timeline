@@ -243,4 +243,17 @@ defmodule TimelineTest.Main do
     assert main |> Main.longest_num_moves == 2
     assert Main.new |> Main.longest_num_moves == 0
   end
+
+  test "Same move w/ same parent: no add, warp to existing move" do
+    original_main =
+      Main.new
+      |> Main.add("cat")
+
+    undo_re_move_main =
+      original_main
+      |> Main.undo
+      |> Main.add("cat")
+
+    assert original_main == undo_re_move_main
+  end
 end

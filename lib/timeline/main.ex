@@ -10,6 +10,16 @@ defmodule Timeline.Main do
   end
 
   def add(t, value, manual_id \\ nil) do
+    repeat_move = find_repeat_move(t, value)
+    if repeat_move == nil do
+      do_add(t, value, manual_id)
+    else
+      t
+      |> Map.put(:current_node_id, repeat_move |> Node.id)
+    end
+  end
+
+  defp do_add(t, value, manual_id) do
     old_current_id = t.current_node_id
     new_current_id = manual_id || t.auto_id
     new_auto_id = t.auto_id + 1
@@ -229,6 +239,17 @@ defmodule Timeline.Main do
   def size(t), do: length(t.nodes)
 
   # defp current_node(t), do: get_node(t, t.current_node_id)
+
+  defp find_repeat_move(t, value) do
+    Enum.find(t.nodes, fn existing_node ->
+      existing_parent_id = existing_node |> Node.parent_id
+      existing_value = existing_node |> Node.value
+      proposed_parent_id = t.current_node_id
+      proposed_value = value
+
+      existing_parent_id == proposed_parent_id and existing_value == proposed_value
+    end)
+  end
 
   defp just_ids(node_list), do: node_list |> Enum.map(&Node.id/1)
 end
