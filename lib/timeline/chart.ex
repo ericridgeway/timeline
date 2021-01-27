@@ -134,7 +134,14 @@ defmodule Timeline.Chart do
     Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
       square_id = square |> Square.id
 
-      if not placeholder?(t, pair) and ((y > cur_y) or (y == cur_y and square_id in id_list)) do
+      placeholder? = placeholder?(t, pair)
+      past_cur_y? = y > cur_y
+
+      same_y? = y == cur_y
+      in_cur_branch? = square_id in id_list
+      same_y_and_in_cur_branch? = same_y? and in_cur_branch?
+
+      if not placeholder? and (past_cur_y? or same_y_and_in_cur_branch?) do
         pointed_up = square |> Square.source_direction == :up
 
         new_t
