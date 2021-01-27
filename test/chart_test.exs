@@ -123,4 +123,8 @@ defmodule TimelineTest.Chart do
       ~w[|j -k -l -m],
     ]
   end
+
+  test "no error if empty timeline" do
+    assert Main.new |> Chart.new == %{}
+  end
 end

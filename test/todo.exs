@@ -125,6 +125,10 @@
 # cleanup main loop with extractFunctions w/ readable names
 # name&extract anon func in asciiOutput
 
+# move 0 should be :root (or something), not nil
+# instead of new checcking main.nodes, make a main function for empty? or something
+
+
 # chart main--
 # prev
 # + hardcoded 1..100 & cut&paste inst loops, see notebk

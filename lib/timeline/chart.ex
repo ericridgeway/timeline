@@ -4,8 +4,12 @@ defmodule Timeline.Chart do
   alias AsciiOutput.Main, as: AsciiOutput
 
   def new(main) do
-    draw_first_row(main)
-    |> draw_remaining_rows(main)
+    if main.nodes == [] do
+      %{}
+    else
+      draw_first_row(main)
+      |> draw_remaining_rows(main)
+    end
   end
 
   def max_x(t), do: t |> AsciiOutput.max_x
