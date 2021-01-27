@@ -207,6 +207,13 @@ defmodule Timeline.Main do
     end
   end
 
+  def longest_num_moves(t) do
+    Enum.map(t.nodes, fn node ->
+      move_num(t, node |> Node.id)
+    end)
+    |> Enum.max
+  end
+
   # def first_moves(t) do
   #   Enum.filter(t.nodes, fn node -> Node.parent_id(node) == nil end)
   # end

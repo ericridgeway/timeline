@@ -216,4 +216,15 @@ defmodule TimelineTest.Main do
     assert main |> Main.any_children?(cat_id)
     refute main |> Main.any_children?(dog_id)
   end
+
+  test "Longest num moves" do
+    main =
+      Main.new
+      |> Main.add("cat")
+      |> Main.add("dog")
+      |> Main.undo
+      |> Main.add("mouse")
+
+    assert main |> Main.longest_num_moves == 2
+  end
 end
