@@ -127,7 +127,8 @@
 
 # chart main--
 # prev
-# hardcoded 1..100 & cut&paste inst loops, see notebk
-# pretty case statement with _unchanged(?) as last default new_t line
+# + hardcoded 1..100 & cut&paste inst loops, see notebk
 # + leave placeholders or special type of square or something when pushing down, and the ascii output should be "|"
 # + square placeholder back to nil id once confirm that's not what's breaking stuff
+# pretty case statement(s?) with _unchanged(?) as last default new_t line
+# finish extracting readable funcs from comments in draw_row

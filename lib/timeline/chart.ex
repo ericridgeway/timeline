@@ -29,7 +29,8 @@ defmodule Timeline.Chart do
   end
 
   defp draw_row(t, main, cur_y) do
-    Enum.reduce(1..100, t, fn cur_x, new_t ->
+    max_possible_x = Main.longest_num_moves(main)
+    Enum.reduce(1..max_possible_x, t, fn cur_x, new_t ->
       cur_pair = {cur_x, cur_y}
 
       # check_left
