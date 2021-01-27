@@ -81,7 +81,12 @@ defmodule Timeline.Chart do
             # bump_all_at_past_this_y_down_1 if overlap
             new_t =
               if Map.has_key?(new_t, cur_pair) do
-                bump_ys(new_t, cur_y)
+                new_t
+                |> IO.inspect(label: "orig")
+                |> bump_ys(cur_y)
+                |> IO.inspect(label: "after_bump")
+                |> add_placeholder_square(cur_pair)
+                |> IO.inspect(label: "after_add_placeholder")
               else
                 new_t
               end
@@ -96,6 +101,12 @@ defmodule Timeline.Chart do
         end
 
     end)
+  end
+
+
+  defp add_placeholder_square(t, pair) do
+    square = Square.new_placeholder
+    Map.put(t, pair, square)
   end
 
   defp add_square(t, main, y, id, source_direction) do

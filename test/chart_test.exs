@@ -83,7 +83,7 @@ defmodule TimelineTest.Chart do
 
     assert chart |> Chart.ascii_output == [
       ~w[-cat    -dog],
-      ~w[.       |cheese],
+      ~w[|       |cheese],
       ~w[|monkey -mouse],
     ]
   end
@@ -118,8 +118,8 @@ defmodule TimelineTest.Chart do
     assert chart |> Chart.ascii_output == [
       ~w[-a -b .   .],
       ~w[|i |c -d  .],
-      ~w[.  .  |e -f],
-      ~w[.  |g -h  .],
+      ~w[|  |  |e -f],
+      ~w[|  |g -h  .],
       ~w[|j -k -l -m],
     ]
   end
