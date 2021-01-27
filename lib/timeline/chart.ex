@@ -8,22 +8,10 @@ defmodule Timeline.Chart do
     |> draw_remaining_rows(main)
   end
 
-  def ascii_output(t) do
-    value_fn = fn square ->
-      value = square |> Square.value
-      source_direction = square |> Square.source_direction
-      source_ascii =
-        case source_direction do
-          :up -> "|"
-          _left -> "-"
-        end
-        "#{source_ascii}#{value}"
-    end
-    t |> AsciiOutput.ascii_output(value_fn)
-  end
-
   def max_x(t), do: t |> AsciiOutput.max_x
   def max_y(t), do: t |> AsciiOutput.max_y
+
+  def ascii_output(t), do: t |> AsciiOutput.ascii_output(&get_ascii_for_square/1)
 
   def value_at(t, key) do
     Map.get(t, key) |> Square.value
@@ -152,5 +140,16 @@ defmodule Timeline.Chart do
     t
     |> Enum.reject(fn {_pair, square} -> square |> Square.placeholder? end)
     |> length
+  end
+
+  def get_ascii_for_square(square) do
+    source_ascii =
+      case Square.source_direction(square) do
+        :up -> "|"
+        _left -> "-"
+      end
+    value = square |> Square.value
+
+    "#{source_ascii}#{value}"
   end
 end
