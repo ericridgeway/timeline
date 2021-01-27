@@ -48,7 +48,7 @@ defmodule Timeline.Main do
     if children(t, t.current_node_id) == [], do: false, else: true
   end
 
-  def history_to_current(%{current_node_id: nil}), do: []
+  # def history_to_current(%{current_node_id: nil}), do: []
   def history_to_current(t) do
     t
     |> parents(t.current_node_id)
