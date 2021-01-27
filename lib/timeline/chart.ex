@@ -49,7 +49,7 @@ defmodule Timeline.Chart do
           left_pair = {cur_x-1, cur_y}
 
           # left filled?
-          if new_t |> Map.has_key?(left_pair) do
+          if new_t |> occupied?(left_pair) do
             # left_has_atleast_1_child?
             left_id = Map.get(new_t, left_pair) |> Square.id
             if Main.any_children?(main, left_id) do
@@ -72,7 +72,7 @@ defmodule Timeline.Chart do
       up_pair = {cur_x, cur_y-1}
         # up filled?
       new_t =
-        if new_t |> Map.has_key?(up_pair) do
+        if new_t |> occupied?(up_pair) do
             # up_has_down?
           up_id = Map.get(new_t, up_pair) |> Square.id
           if Main.any_downs?(main, up_id) do
@@ -80,8 +80,8 @@ defmodule Timeline.Chart do
 
             # bump_all_at_past_this_y_down_1 if overlap
             new_t =
-              if Map.has_key?(new_t, cur_pair) do
-                bump_ys(new_t, cur_y)
+              if occupied?(new_t, cur_pair) do
+                new_t |> bump_ys(cur_y)
               else
                 new_t
               end
@@ -98,6 +98,20 @@ defmodule Timeline.Chart do
     end)
   end
 
+
+  defp occupied?(t, pair) do
+    Map.has_key?(t, pair) and not placeholder?(t, pair)
+  end
+
+  defp add_placeholder_square_if_empty(t, pair) do
+    if not occupied?(t, pair) do
+      square = Square.new_placeholder
+      Map.put(t, pair, square)
+    else
+      t
+    end
+  end
+
   defp add_square(t, main, y, id, source_direction) do
     value = Main.get_node(main, id) |> Node.value
     x = Main.move_num(main, id)
@@ -108,8 +122,10 @@ defmodule Timeline.Chart do
 
   defp bump_ys(t, this_y_or_lower) do
     Enum.reduce(t, Map.new, fn {{x,y}=pair, square}, new_t ->
-      if y >= this_y_or_lower do
-        Map.put(new_t, {x, y+1}, square)
+      if y >= this_y_or_lower and not placeholder?(t, pair) do
+        new_t
+        |> Map.put({x, y+1}, square)
+        |> add_placeholder_square_if_empty(pair)
       else
         Map.put(new_t, pair, square)
       end
@@ -205,6 +221,11 @@ defmodule Timeline.Chart do
   #     y
   #   end
   # end
+
+  defp placeholder?(t, pair) do
+    square = Map.get(t, pair)
+    square |> Square.placeholder?
+  end
 
   defp any_already_added?(t, proposed_map_adds) do
     Enum.any?(proposed_map_adds, fn {pair, square} ->
