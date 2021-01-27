@@ -103,9 +103,13 @@ defmodule Timeline.Chart do
     Map.has_key?(t, pair) and not placeholder?(t, pair)
   end
 
-  defp add_placeholder_square(t, pair) do
-    square = Square.new_placeholder
-    Map.put(t, pair, square)
+  defp add_placeholder_square_if_empty(t, pair) do
+    if not occupied?(t, pair) do
+      square = Square.new_placeholder
+      Map.put(t, pair, square)
+    else
+      t
+    end
   end
 
   defp add_square(t, main, y, id, source_direction) do
