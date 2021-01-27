@@ -59,6 +59,7 @@ defmodule Timeline.Main do
     t |> update_current_node_id(id)
   end
 
+  defp add_all_parent_nodes_to_list([], _), do: []
   defp add_all_parent_nodes_to_list(old_list, t) do
     hd_id = hd(old_list) |> Node.id
     parent = parent(t, hd_id)

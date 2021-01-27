@@ -164,6 +164,7 @@ defmodule TimelineTest.Main do
 
     assert main |> Main.move_num(cat_id) == 1
     assert main |> Main.move_num(mouse_id) == 2
+    assert main |> Main.move_num(nil) == 0
   end
 
   test "size" do
