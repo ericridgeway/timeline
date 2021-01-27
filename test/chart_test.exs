@@ -87,4 +87,40 @@ defmodule TimelineTest.Chart do
       ~w[|monkey -mouse],
     ]
   end
+
+  test "Big complicated one just to be sure" do
+    chart =
+      Main.new
+      |> Main.add("a")
+      |> Main.add("b")
+      |> Main.undo
+      |> Main.add("c")
+      |> Main.add("d")
+      |> Main.undo
+      |> Main.add("e")
+      |> Main.add("f")
+      |> Main.undo
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("g")
+      |> Main.add("h")
+      |> Main.undo
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("i")
+      |> Main.undo
+      |> Main.add("j")
+      |> Main.add("k")
+      |> Main.add("l")
+      |> Main.add("m")
+      |> Chart.new
+
+    assert chart |> Chart.ascii_output == [
+      ~w[-a -b .   .],
+      ~w[|i |c -d  .],
+      ~w[.  .  |e -f],
+      ~w[.  |g -h  .],
+      ~w[|j -k -l -m],
+    ]
+  end
 end
