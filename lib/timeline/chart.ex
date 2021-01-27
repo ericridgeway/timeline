@@ -13,17 +13,27 @@ defmodule Timeline.Chart do
         add_square(map, main, 1, id, :left)
       end)
 
-    t = draw_row(t, main, 2)
-    t = draw_row(t, main, 3)
-    t = draw_row(t, main, 4)
-    t = draw_row(t, main, 5)
-    t = draw_row(t, main, 6)
-    t = draw_row(t, main, 7)
-    t = draw_row(t, main, 8)
+    draw_row(t, main, 1)
+    # t = draw_row(t, main, 3)
+    # t = draw_row(t, main, 4)
+    # t = draw_row(t, main, 5)
+    # t = draw_row(t, main, 6)
+    # t = draw_row(t, main, 7)
+    # t = draw_row(t, main, 8)
   end
 
 
   defp draw_row(t, main, cur_y) do
+    t = do_draw_row(t, main, cur_y)
+
+    if occupied_size(t) == Main.size(main) do
+      t
+    else
+      draw_row(t, main, cur_y + 1)
+    end
+  end
+
+  defp do_draw_row(t, main, cur_y) do
     Enum.reduce(1..100, t, fn cur_x, new_t ->
       cur_pair = {cur_x, cur_y}
 
@@ -142,5 +152,11 @@ defmodule Timeline.Chart do
   defp placeholder?(t, pair) do
     square = Map.get(t, pair)
     square |> Square.placeholder?
+  end
+
+  defp occupied_size(t) do
+    t
+    |> Enum.reject(fn {_pair, square} -> square |> Square.placeholder? end)
+    |> length
   end
 end
