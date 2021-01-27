@@ -12,7 +12,10 @@ defmodule Timeline.Chart do
     end
   end
 
+  def max_x(t) when map_size(t) == 0, do: 0
   def max_x(t), do: t |> AsciiOutput.max_x
+
+  def max_y(t) when map_size(t) == 0, do: 0
   def max_y(t), do: t |> AsciiOutput.max_y
 
   def ascii_output(t), do: t |> AsciiOutput.ascii_output(&get_ascii_for_square/1)

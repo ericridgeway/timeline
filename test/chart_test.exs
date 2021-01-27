@@ -126,5 +126,6 @@ defmodule TimelineTest.Chart do
 
   test "no error if empty timeline" do
     assert Main.new |> Chart.new == %{}
+    assert Main.new |> Chart.new |> Chart.max_x == 0
   end
 end
