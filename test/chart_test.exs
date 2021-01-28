@@ -183,8 +183,11 @@ defmodule TimelineTest.Chart do
       |> Main.add("a")
       |> Main.undo
       |> Main.add("b")
+      |> IO.inspect(label: "before undo")
       |> Main.undo
+      |> IO.inspect(label: "after undo")
       |> Chart.new
+      |> IO.inspect(label: "chart")
 
   end
 end

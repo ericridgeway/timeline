@@ -102,8 +102,19 @@ defmodule TimelineTest.Main do
     refute main |> Main.add("cheese") |> Main.any_ups?
   end
 
-  test "any_downs?" do
-    refute Main.new |> Main.add("tree") |> Main.any_downs?
+  test "any_downs? current node" do
+    main =
+      Main.new
+      |> Main.add("tree")
+      |> Main.add("monkey")
+      |> Main.undo
+      |> Main.undo
+      |> Main.add("kitty")
+      |> Main.undo
+      |> Main.redo
+      |> Main.redo
+
+    refute main |> Main.any_downs?
   end
 
   test "any_ups?/downs edgecase empty Main" do
