@@ -24,8 +24,10 @@ defmodule Timeline.Chart do
     Map.get(t, key) |> Square.value
   end
 
+  defp draw_remaining_rows(t, main, cur_y \\ 2)
 
-  defp draw_remaining_rows(t, main, cur_y \\ 2) do
+  defp draw_remaining_rows(_t, _main, cur_y) when cur_y > 99999, do: {:error, :infinite_loop_drew_too_many_timeline_chart_rows}
+  defp draw_remaining_rows(t, main, cur_y) do
     t = draw_row(t, main, cur_y)
 
     if occupied_size(t) == Main.size(main) do
